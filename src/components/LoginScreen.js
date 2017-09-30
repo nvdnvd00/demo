@@ -45,7 +45,7 @@ export default class Login extends Component {
                     accessToken: accessToken,
                     parameters: {
                       fields: {
-                        string: "email,name,first_name,middle_name,last_name,cover"
+                        string: "id,email,name,picture.type(large)"
                       }
                     }
                   },
