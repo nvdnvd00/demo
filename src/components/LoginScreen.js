@@ -21,11 +21,8 @@ export default class Login extends Component {
   componentDidMount() {}
 
   render() {
-    return (
-      <View style={styles.container}>
-        <LoginButton
-          publishPermissions={["publish_actions"]}
-          onLoginFinished={(error, result) => {
+    return <View style={styles.container}>
+        <LoginButton readPermissions={["public_profile","email",]} onLoginFinished={(error, result) => {
             if (error) {
               alert("login has error: " + result.error);
             } else if (result.isCancelled) {
@@ -58,33 +55,20 @@ export default class Login extends Component {
                       .then(response => response.json())
                       .then(res => {
                         if (res.success === true) {
-                          this.props.navigation.navigate("HomeScreen");
+                          
                         }
                       });
                   }
+                  this.props.navigation.navigate("HomeScreen");
                 };
-                const infoRequest = new GraphRequest(
-                  "/me",
-                  {
-                    accessToken: accessToken,
-                    parameters: {
-                      fields: {
-                        string: "id,email,name,picture.type(large)"
-                      }
-                    }
-                  },
-                  responseInfoCallback
-                );
+                const infoRequest = new GraphRequest("/me", { accessToken: accessToken, parameters: { fields: { string: "id,email,name,picture.type(large)" } } }, responseInfoCallback);
 
                 // Start the graph request.
                 new GraphRequestManager().addRequest(infoRequest).start();
               });
             }
-          }}
-          onLogoutFinished={() => alert("logout.")}
-        />
-      </View>
-    );
+          }} onLogoutFinished={() => alert("logout.")} />
+      </View>;
   }
 }
 const styles = StyleSheet.create({
