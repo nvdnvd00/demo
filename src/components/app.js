@@ -6,7 +6,8 @@ import {
   View
 } from 'react-native';
 import SplashScreen from 'react-native-splash-screen';
-import MyDrawerNavigator from './route';
+//import MyDrawerNavigator from './route';
+import MyStackNavigator from './route';
 
 export default class app extends Component {
 
@@ -17,7 +18,7 @@ export default class app extends Component {
 
   render() {
     return (
-      <MyDrawerNavigator/>
+      <MyStackNavigator/>
     );
   }
 }

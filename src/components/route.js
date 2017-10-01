@@ -1,9 +1,5 @@
-import React, { Component } from 'react';
-import { 
-  StackNavigator,
-  DrawerNavigator,
-  DrawerItems
-} from 'react-navigation';
+import React, { Component } from "react";
+import { StackNavigator, DrawerNavigator, DrawerItems } from "react-navigation";
 import {
   ScrollView,
   StyleSheet,
@@ -11,12 +7,25 @@ import {
   Text,
   TouchableOpacity,
   Button
-} from 'react-native';
-import Home from './HomeScreen';
-import Login from './LoginScreen';
+} from "react-native";
+import Home from "./HomeScreen";
+import Login from "./LoginScreen";
 
+const MyStackNavigator = StackNavigator(
+  {
+    LoginScreen: {
+      screen: Login
+    },
+    HomeScreen: {
+      screen: Home
+    }
+  },
+  {
+    headerMode: "none"
+  }
+);
 
-const MyDrawerNavigator = DrawerNavigator({
+/* const MyDrawerNavigator = DrawerNavigator({
   LoginScreen: 
   {
     screen: Login
@@ -31,18 +40,16 @@ const MyDrawerNavigator = DrawerNavigator({
     drawerPosition: 'left',
     contentComponent: props => <CustomDrawerContentComponent {...props} />
   
-});
+}); */
 
-export default MyDrawerNavigator;
+export default MyStackNavigator;
 
 //Custom drawerslidemenu
-const CustomDrawerContentComponent = (props) => (
+/* const CustomDrawerContentComponent = (props) => (
   <View style={{ flex:1, backgroundColor: 'green'}}>
     <Button onPress={ () => props.navigation.navigate('HomeScreen')}
       title= 'Click'
       />     
   </View>
 );
-
-
-
+ */

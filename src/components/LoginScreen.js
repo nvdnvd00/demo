@@ -6,10 +6,16 @@ import {
   GraphRequest
 } from "react-native-fbsdk";
 import { StyleSheet, Text, View, TouchableOpacity } from "react-native";
+import CONFIG from "./config";
+import Home from "./HomeScreen";
+import MyStackNavigator from "./route";
 
 export default class Login extends Component {
   constructor(props) {
     super(props);
+    this.state = {
+      name: ""
+    };
   }
 
   componentDidMount() {}
@@ -27,18 +33,36 @@ export default class Login extends Component {
             } else {
               AccessToken.getCurrentAccessToken().then(data => {
                 let accessToken = data.accessToken;
-                alert(accessToken.toString());
+                {
+                  /* alert(accessToken.toString()); */
+                }
 
                 const responseInfoCallback = (error, result) => {
                   if (error) {
                     console.log(error);
                     alert("Error fetching data: " + error.toString());
                   } else {
-                    console.log(result);
-                    alert("Success fetching data: " + result.toString());
+                    fetch(CONFIG.API_URL + "/users", {
+                      method: "post",
+                      headers: {
+                        Accept: "application/json",
+                        "Content-Type": "application/json"
+                      },
+                      body: JSON.stringify({
+                        id: result.id,
+                        name: result.name,
+                        email: result.email,
+                        avatar: result.avatar
+                      })
+                    })
+                      .then(response => response.json())
+                      .then(res => {
+                        if (res.success === true) {
+                          this.props.navigation.navigate("HomeScreen");
+                        }
+                      });
                   }
                 };
-
                 const infoRequest = new GraphRequest(
                   "/me",
                   {
@@ -63,7 +87,6 @@ export default class Login extends Component {
     );
   }
 }
-
 const styles = StyleSheet.create({
   container: {
     flex: 1,
