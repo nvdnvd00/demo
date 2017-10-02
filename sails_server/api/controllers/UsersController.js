@@ -25,7 +25,7 @@ module.exports = {
           });
       }
 
-      if (result) {
+      if (result!=undefined) {
         users
           .update(
             {
