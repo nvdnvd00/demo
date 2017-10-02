@@ -22,7 +22,7 @@ export default class Login extends Component {
 
   render() {
     return <View style={styles.container}>
-        <LoginButton readPermissions={["public_profile","email",]} onLoginFinished={(error, result) => {
+        <LoginButton readPermissions={["public_profile","email"]} onLoginFinished={(error, result) => {
             if (error) {
               alert("login has error: " + result.error);
             } else if (result.isCancelled) {
@@ -39,7 +39,7 @@ export default class Login extends Component {
                     console.log(error);
                     alert("Error fetching data: " + error.toString());
                   } else {
-                    fetch(CONFIG.API_URL + "/users", {
+                    fetch(CONFIG.API_URL + "/users/login", {
                       method: "post",
                       headers: {
                         Accept: "application/json",
@@ -49,17 +49,17 @@ export default class Login extends Component {
                         id: result.id,
                         name: result.name,
                         email: result.email,
-                        avatar: result.avatar
+                        avatar: result.picture.data.url
                       })
                     })
                       .then(response => response.json())
                       .then(res => {
                         if (res.success === true) {
-                          
+                          this.props.navigation.navigate("HomeScreen");
                         }
                       });
                   }
-                  this.props.navigation.navigate("HomeScreen");
+                  
                 };
                 const infoRequest = new GraphRequest("/me", { accessToken: accessToken, parameters: { fields: { string: "id,email,name,picture.type(large)" } } }, responseInfoCallback);
 
@@ -67,7 +67,7 @@ export default class Login extends Component {
                 new GraphRequestManager().addRequest(infoRequest).start();
               });
             }
-          }} onLogoutFinished={() => alert("logout.")} />
+          }} onLogoutFinished={() => alert("Đăng xuất thành công")} />
       </View>;
   }
 }

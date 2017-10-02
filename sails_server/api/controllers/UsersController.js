@@ -11,31 +11,38 @@ module.exports = {
     var name = req.param("name");
     var email = req.param("email");
     var avatar = req.param("avatar");
-    /* Users.findOne({ id: id }).exec(function(err, result) {
-      if (err) {
-        Users.create({
-          id: id,
-          name: name,
-          email: email,
-          avatar: avatar
-        }).exec(function(err, created) {
-          if (err) {
-            return res.serverError(err);
-          }
-          return res.send({ success: true });
-        });
-      
+    users.findOne({ id: id }).exec(function(error, result) {
+      if (result==undefined) {
+        users
+          .create({
+            id: id,
+            name: name,
+            email: email,
+            avatar: avatar
+          })
+          .exec(function(err, created) {
+            return res.send({ success: true });
+          });
       }
-    }); */
-    users.findOrCreate({ 
-      id: id,
-      name: name,
-      email: email,
-      avatar: avatar 
-    }).exec(
-      function createFindCB(error, createdOrFoundRecords) {
-        return res.send({success: true});
+
+      if (result) {
+        users
+          .update(
+            {
+              id: id
+            },
+            {
+              name: name,
+              email: email,
+              avatar: avatar
+            }
+          )
+          .exec(function(err, updated) {
+            res.send({
+              success: true
+            });
+          });
       }
-    );
+    });
   }
 };
