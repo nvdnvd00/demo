@@ -1,25 +1,26 @@
-
 import React, { Component } from 'react';
-import {
-  StyleSheet,
-  Text,
-  View
-} from 'react-native';
-import SplashScreen from 'react-native-splash-screen';
+
+import SplashScreen from "react-native-splash-screen";
 //import MyDrawerNavigator from './route';
-import MyStackNavigator from './route';
+import MyStackNavigator from "./route";
+import MyDrawerNavigator from "./route";
+import {connect} from 'react-redux';
 
-export default class app extends Component {
 
+
+class App extends Component {
   componentDidMount() {
-    
-        SplashScreen.hide();
-    }
+    SplashScreen.hide();
+  }
 
   render() {
     return (
-      <MyStackNavigator/>
+      
+        <MyStackNavigator />
+    
     );
   }
 }
- 
+
+
+export default connect()(App);

@@ -8,14 +8,19 @@ import {
   TouchableOpacity,
   Button
 } from "react-native";
-import Home from "./HomeScreen";
-import Login from "./LoginScreen";
+import CONFIG from "./config";
+import {
+  LoginButton,
+  AccessToken,
+  GraphRequestManager,
+  GraphRequest
+} from "react-native-fbsdk";
 
+import Home from "./HomeScreen";
+import CustomDrawerContentComponent from './customDrawerContentComponent';
+import {connect} from 'react-redux';
 const MyStackNavigator = StackNavigator(
   {
-    LoginScreen: {
-      screen: Login
-    },
     HomeScreen: {
       screen: Home
     }
@@ -25,31 +30,19 @@ const MyStackNavigator = StackNavigator(
   }
 );
 
-/* const MyDrawerNavigator = DrawerNavigator({
-  LoginScreen: 
+const MyDrawerNavigator = DrawerNavigator(
   {
-    screen: Login
+    Stack: {
+      screen: MyStackNavigator
+    },
+    HomeScreen: {
+      screen: Home
+    }
   },
-  HomeScreen: 
-  { 
-    screen: Home 
-  }
-},  
   {
     drawerWidth: 200,
-    drawerPosition: 'left',
+    drawerPosition: "left",
     contentComponent: props => <CustomDrawerContentComponent {...props} />
-  
-}); */
-
-export default MyStackNavigator;
-
-//Custom drawerslidemenu
-/* const CustomDrawerContentComponent = (props) => (
-  <View style={{ flex:1, backgroundColor: 'green'}}>
-    <Button onPress={ () => props.navigation.navigate('HomeScreen')}
-      title= 'Click'
-      />     
-  </View>
+  }
 );
- */
+export default connect()(MyDrawerNavigator);
