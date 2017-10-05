@@ -9,16 +9,10 @@ import {
 import { StyleSheet, Text, View, TouchableOpacity, Image } from "react-native";
 import CONFIG from "./config";
 import { connect } from "react-redux";
-import { saveUserId } from "../redux/action";
 
 class CustomDrawerContentComponent extends Component {
   constructor(props) {
     super(props);
-    this.state = {
-      fb_id: "",
-      fb_name: "USER",
-      fb_avatar: ""
-    };
   }
 
   componentDidMount() {
@@ -34,9 +28,9 @@ class CustomDrawerContentComponent extends Component {
         <View style={styles.infoUser}>
           {/* View avatar (absolute) */}
           <View style={styles.avatar}>
-            {this.state.fb_avatar !== "" ? (
+            {this.props.myUser_avatar !== "" ? (
               <Image
-                source={{ uri: this.state.fb_avatar }}
+                source={{ uri: this.props.myUser_avatar }}
                 style={styles.image_avatar}
               />
             ) : (
@@ -47,7 +41,10 @@ class CustomDrawerContentComponent extends Component {
             )}
           </View>
           <View style={styles.user_name}>
-            <Text style={{ fontWeight: "bold" }}> {this.state.fb_name}</Text>
+            <Text style={{ fontWeight: "bold" }}>
+              {" "}
+              {this.props.myUser_name}
+            </Text>
           </View>
           <View style={styles.buttonLoginfb}>
             <LoginButton
@@ -85,12 +82,19 @@ class CustomDrawerContentComponent extends Component {
                           .then(res => {
                             if (res.success === true) {
                               //action khi có thông báo success từ sv trả về
-                              this.setState({ fb_id: result.id });
-                              this.setState({ fb_name: result.name });
-                              this.setState({
-                                fb_avatar: result.picture.data.url
+                              this.props.dispatch({
+                                type: "SAVE_ID",
+                                user_id: result.id
                               });
-                              //this.props.saveUserId(this.state.idd);
+                              this.props.dispatch({
+                                type: "SAVE_NAME",
+                                user_name: result.name
+                              });
+                              this.props.dispatch({
+                                type: "SAVE_AVATAR",
+                                user_avatar: result.picture.data.url
+                              });
+                             
                             }
                           });
                       }
@@ -114,16 +118,23 @@ class CustomDrawerContentComponent extends Component {
                 }
               }}
               onLogoutFinished={() => {
-                this.setState({ fb_id: "" });
-                this.setState({ fb_name: "USER" });
-                this.setState({ fb_avatar: "" });
+                this.props.dispatch({
+                  type: "SAVE_ID",
+                  user_id: ''
+                });
+                this.props.dispatch({
+                  type: "SAVE_NAME",
+                  user_name: 'USER'
+                });
+                this.props.dispatch({
+                  type: "SAVE_AVATAR",
+                  user_avatar: ''
+                });
               }}
             />
           </View>
         </View>
-        <View style={{ flex: 3 }}>
-          
-        </View>
+        <View style={{ flex: 3 }} />
       </View>
     );
   }
@@ -144,6 +155,7 @@ const styles = StyleSheet.create({
     flex: 1,
 
     position: "absolute",
+    top:5,
     alignSelf: "center"
   },
   image_avatar: {
@@ -167,9 +179,9 @@ const styles = StyleSheet.create({
 });
 function mapStateToProps(state) {
   return {
-    myUserId: state.userId
+    myUser_id: state.user_id,
+    myUser_name: state.user_name,
+    myUser_avatar: state.user_avatar
   };
 }
-export default connect(mapStateToProps, { saveUserId })(
-  CustomDrawerContentComponent
-); //connect redux to component
+export default connect(mapStateToProps)(CustomDrawerContentComponent); //connect redux to component
