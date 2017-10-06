@@ -11,7 +11,7 @@ module.exports = {
     var name = req.param("name");
     var email = req.param("email");
     var avatar = req.param("avatar");
-    users.findOne({ id: id }).exec(function(error, result) {
+    Users.findOne({ id: id }).exec(function(error, result) {
       if (result==undefined) {
         users
           .create({
@@ -26,7 +26,7 @@ module.exports = {
       }
 
       if (result!=undefined) {
-        users
+        Users
           .update(
             {
               id: id

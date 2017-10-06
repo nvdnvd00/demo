@@ -26,7 +26,6 @@ import {
 import CONFIG from "../config";
 import { connect } from "react-redux";
 
-
 class CustomDrawerContentComponent extends Component {
   constructor(props) {
     super(props);
@@ -37,15 +36,32 @@ class CustomDrawerContentComponent extends Component {
   }
 
   render() {
-    return <Container>
+    return (
+      <Container>
         <Header style={styles.header}>
           <Content>
-            {this.props.myUser_avatar !== "" ? <Thumbnail style={styles.avatar} large source={{ uri: this.props.myUser_avatar }} /> : <Thumbnail style={styles.avatar} large source={require("./images/avatarUnknown.png")} />}
-            {this.props.myUser_name !== "" ? <Text style={styles.username}>
-                {this.props.myUser_name}
-              </Text> : <Text style={styles.username}>USER</Text>}
+            {this.props.myUser_avatar !== "" ? (
+              <Thumbnail
+                style={styles.avatar}
+                large
+                source={{ uri: this.props.myUser_avatar }}
+              />
+            ) : (
+              <Thumbnail
+                style={styles.avatar}
+                large
+                source={require("./images/avatarUnknown.png")}
+              />
+            )}
+            {this.props.myUser_name !== "" ? (
+              <Text style={styles.username}>{this.props.myUser_name}</Text>
+            ) : (
+              <Text style={styles.username}>USER</Text>
+            )}
             <View style={styles.buttonLoginfb}>
-              <LoginButton readPermissions={["public_profile", "email"]} onLoginFinished={(error, result) => {
+              <LoginButton
+                readPermissions={["public_profile", "email"]}
+                onLoginFinished={(error, result) => {
                   if (error) {
                     alert("Lỗi đăng nhập " + result.error);
                   } else if (result.isCancelled) {
@@ -57,7 +73,10 @@ class CustomDrawerContentComponent extends Component {
                       const responseInfoCallback = (error, result) => {
                         if (error) {
                           console.log(error);
-                          alert("Lỗi khi lấy dữ liệu từ facebook: " + error.toString());
+                          alert(
+                            "Lỗi khi lấy dữ liệu từ facebook: " +
+                              error.toString()
+                          );
                         } else {
                           fetch(CONFIG.API_URL + "/users/login", {
                             method: "post",
@@ -92,15 +111,25 @@ class CustomDrawerContentComponent extends Component {
                             });
                         }
                       };
-                      const infoRequest = new GraphRequest("/me", { accessToken: accessToken, parameters: { fields: { string: "id,email,name,picture.type(large)" } } }, responseInfoCallback);
+                      const infoRequest = new GraphRequest(
+                        "/me",
+                        {
+                          accessToken: accessToken,
+                          parameters: {
+                            fields: {
+                              string: "id,email,name,picture.type(large)"
+                            }
+                          }
+                        },
+                        responseInfoCallback
+                      );
 
                       // Start the graph request.
-                      new GraphRequestManager()
-                        .addRequest(infoRequest)
-                        .start();
+                      new GraphRequestManager().addRequest(infoRequest).start();
                     });
                   }
-                }} onLogoutFinished={() => {
+                }}
+                onLogoutFinished={() => {
                   this.props.dispatch({ type: "SAVE_ID", user_id: "" });
                   this.props.dispatch({
                     type: "SAVE_NAME",
@@ -110,70 +139,102 @@ class CustomDrawerContentComponent extends Component {
                     type: "SAVE_AVATAR",
                     user_avatar: ""
                   });
-                }} />
+                }}
+              />
             </View>
           </Content>
         </Header>
 
         <Content>
           <List>
-            <Button transparent dark onPress={() => {
+            <Button
+              transparent
+              dark
+              onPress={() => {
                 this.props.navigation.navigate("HomeScreen");
-              }}>
+              }}
+            >
               <Icon name="home" />
               <Text style={styles.text}>Trang chủ</Text>
             </Button>
 
-            {this.props.myUser_id !== "" ? <Button transparent dark onPress={() => {
+            {this.props.myUser_id !== "" ? (
+              <Button
+                transparent
+                dark
+                onPress={() => {
                   this.props.navigation.navigate("HomeScreen");
-                }}>
+                }}
+              >
                 <Icon name="home" />
                 <Text style={styles.text}>Cá nhân</Text>
-              </Button> : null}
+              </Button>
+            ) : null}
 
-            <Button transparent dark onPress={() => {
+            <Button
+              transparent
+              dark
+              onPress={() => {
                 this.props.navigation.navigate("HomeScreen");
-              }}>
+              }}
+            >
               <Icon name="unlock" />
               <Text style={styles.text}>Kĩ thuật cơ bản</Text>
             </Button>
-            <Button transparent dark onPress={() => {
+            <Button
+              transparent
+              dark
+              onPress={() => {
                 this.props.navigation.navigate("HomeScreen");
-              }}>
+              }}
+            >
               <Icon name="star" />
               <Text style={styles.text}>Kĩ thuật nâng cao</Text>
             </Button>
-            <Button transparent dark onPress={() => {
+            <Button
+              transparent
+              dark
+              onPress={() => {
                 this.props.navigation.navigate("HomeScreen");
-              }}>
+              }}
+            >
               <Icon name="home" />
               <Text style={styles.text}>Hội nhóm</Text>
             </Button>
-            <Button transparent dark onPress={() => {
+            <Button
+              transparent
+              dark
+              onPress={() => {
                 this.props.navigation.navigate("HomeScreen");
-              }}>
+              }}
+            >
               <Icon name="home" />
               <Text style={styles.text}>Góc tư vấn</Text>
             </Button>
-            <Button transparent dark onPress={() => {
+            <Button
+              transparent
+              dark
+              onPress={() => {
                 this.props.navigation.navigate("HomeScreen");
-              }}>
+              }}
+            >
               <Icon name="heart" />
-              <Text style={styles.text} >Liên hệ</Text>
+              <Text style={styles.text}>Liên hệ</Text>
             </Button>
           </List>
         </Content>
         <Footer style={styles.footer}>
           <Text style={styles.footer_text}>Ver 1.0</Text>
         </Footer>
-      </Container>;
+      </Container>
+    );
   }
 }
 
 const styles = StyleSheet.create({
-  header:{
-     height: 150 ,
-    backgroundColor: '#404040'
+  header: {
+    height: 150,
+    backgroundColor: "#404040"
   },
   avatar: {
     alignSelf: "center",
@@ -188,23 +249,19 @@ const styles = StyleSheet.create({
     padding: 7
   },
   buttonLoginfb: {
-    alignSelf: "center",
-    
+    alignSelf: "center"
   },
   footer: {
-   height: 30,
-   backgroundColor: '#404040',
-   
+    height: 30,
+    backgroundColor: "#404040"
   },
-  footer_text:{
-    
+  footer_text: {
     fontFamily: "carbon bl",
-    color: 'white'
+    color: "white"
   },
-  text:{
-    fontFamily: "Crabmeal",
+  text: {
+    fontFamily: "Crabmeal"
   }
- 
 });
 function mapStateToProps(state) {
   return {
