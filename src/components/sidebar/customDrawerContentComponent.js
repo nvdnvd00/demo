@@ -7,7 +7,7 @@ import {
   LoginManager
 } from "react-native-fbsdk";
 import { StyleSheet, Text, View, TouchableOpacity, Image } from "react-native";
-import CONFIG from "./config";
+import CONFIG from "../config";
 import { connect } from "react-redux";
 
 class CustomDrawerContentComponent extends Component {
@@ -35,7 +35,7 @@ class CustomDrawerContentComponent extends Component {
               />
             ) : (
               <Image
-                source={require("../images/avatarUnknown.png")}
+                source={require("./images/avatarUnknown.png")}
                 style={styles.image_avatar}
               />
             )}

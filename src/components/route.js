@@ -17,7 +17,7 @@ import {
 } from "react-native-fbsdk";
 
 import Home from "./HomeScreen";
-import CustomDrawerContentComponent from './customDrawerContentComponent';
+import CustomDrawerContentComponent from './sidebar/customDrawerContentComponent';
 import {connect} from 'react-redux';
 const MyStackNavigator = StackNavigator(
   {
