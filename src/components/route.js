@@ -40,7 +40,7 @@ const MyDrawerNavigator = DrawerNavigator(
     }
   },
   {
-    drawerWidth: 200,
+    drawerWidth: 220,
     drawerPosition: "left",
     contentComponent: props => <CustomDrawerContentComponent {...props} />
   }

@@ -6,12 +6,14 @@ import MyStackNavigator from "./route";
 import MyDrawerNavigator from "./route";
 import {connect} from 'react-redux';
 import SplashScreen from "react-native-smart-splash-screen";
+import {StatusBar} from 'react-native';
 
 
 
 class App extends Component {
   componentDidMount() {
-   // SplashScreen.hide();
+   StatusBar.setHidden(true);
+   
    SplashScreen.close({
      animationType: SplashScreen.animationType.scale,
      duration: 850,

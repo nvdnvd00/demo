@@ -6,9 +6,26 @@ import {
   GraphRequest,
   LoginManager
 } from "react-native-fbsdk";
-import { StyleSheet, Text, View, TouchableOpacity, Image } from "react-native";
+import { StyleSheet, View, TouchableOpacity, Image } from "react-native";
+import {
+  Container,
+  Header,
+  Content,
+  Footer,
+  List,
+  ListItem,
+  Text,
+  Icon,
+  Left,
+  Body,
+  Right,
+  Switch,
+  Thumbnail,
+  Button
+} from "native-base";
 import CONFIG from "../config";
 import { connect } from "react-redux";
+
 
 class CustomDrawerContentComponent extends Component {
   constructor(props) {
@@ -20,162 +37,174 @@ class CustomDrawerContentComponent extends Component {
   }
 
   render() {
-    return (
-      /* View bao trum */
+    return <Container>
+        <Header style={styles.header}>
+          <Content>
+            {this.props.myUser_avatar !== "" ? <Thumbnail style={styles.avatar} large source={{ uri: this.props.myUser_avatar }} /> : <Thumbnail style={styles.avatar} large source={require("./images/avatarUnknown.png")} />}
+            {this.props.myUser_name !== "" ? <Text style={styles.username}>
+                {this.props.myUser_name}
+              </Text> : <Text style={styles.username}>USER</Text>}
+            <View style={styles.buttonLoginfb}>
+              <LoginButton readPermissions={["public_profile", "email"]} onLoginFinished={(error, result) => {
+                  if (error) {
+                    alert("Lỗi đăng nhập " + result.error);
+                  } else if (result.isCancelled) {
+                    alert("Đã hủy đăng nhập");
+                  } else {
+                    AccessToken.getCurrentAccessToken().then(data => {
+                      let accessToken = data.accessToken;
 
-      <View style={styles.container}>
-        {/*  View info User */}
-        <View style={styles.infoUser}>
-          {/* View avatar (absolute) */}
-          <View style={styles.avatar}>
-            {this.props.myUser_avatar !== "" ? (
-              <Image
-                source={{ uri: this.props.myUser_avatar }}
-                style={styles.image_avatar}
-              />
-            ) : (
-              <Image
-                source={require("./images/avatarUnknown.png")}
-                style={styles.image_avatar}
-              />
-            )}
-          </View>
-          <View style={styles.user_name}>
-            <Text style={{ fontWeight: "bold" }}>
-              {" "}
-              {this.props.myUser_name}
-            </Text>
-          </View>
-          <View style={styles.buttonLoginfb}>
-            <LoginButton
-              readPermissions={["public_profile", "email"]}
-              onLoginFinished={(error, result) => {
-                if (error) {
-                  alert("Lỗi đăng nhập " + result.error);
-                } else if (result.isCancelled) {
-                  alert("Đã hủy đăng nhập");
-                } else {
-                  AccessToken.getCurrentAccessToken().then(data => {
-                    let accessToken = data.accessToken;
-
-                    const responseInfoCallback = (error, result) => {
-                      if (error) {
-                        console.log(error);
-                        alert(
-                          "Lỗi khi lấy dữ liệu từ facebook: " + error.toString()
-                        );
-                      } else {
-                        fetch(CONFIG.API_URL + "/users/login", {
-                          method: "post",
-                          headers: {
-                            Accept: "application/json",
-                            "Content-Type": "application/json"
-                          },
-                          body: JSON.stringify({
-                            id: result.id,
-                            name: result.name,
-                            email: result.email,
-                            avatar: result.picture.data.url
+                      const responseInfoCallback = (error, result) => {
+                        if (error) {
+                          console.log(error);
+                          alert("Lỗi khi lấy dữ liệu từ facebook: " + error.toString());
+                        } else {
+                          fetch(CONFIG.API_URL + "/users/login", {
+                            method: "post",
+                            headers: {
+                              Accept: "application/json",
+                              "Content-Type": "application/json"
+                            },
+                            body: JSON.stringify({
+                              id: result.id,
+                              name: result.name,
+                              email: result.email,
+                              avatar: result.picture.data.url
+                            })
                           })
-                        })
-                          .then(response => response.json())
-                          .then(res => {
-                            if (res.success === true) {
-                              //action khi có thông báo success từ sv trả về
-                              this.props.dispatch({
-                                type: "SAVE_ID",
-                                user_id: result.id
-                              });
-                              this.props.dispatch({
-                                type: "SAVE_NAME",
-                                user_name: result.name
-                              });
-                              this.props.dispatch({
-                                type: "SAVE_AVATAR",
-                                user_avatar: result.picture.data.url
-                              });
-                             
-                            }
-                          });
-                      }
-                    };
-                    const infoRequest = new GraphRequest(
-                      "/me",
-                      {
-                        accessToken: accessToken,
-                        parameters: {
-                          fields: {
-                            string: "id,email,name,picture.type(large)"
-                          }
+                            .then(response => response.json())
+                            .then(res => {
+                              if (res.success === true) {
+                                //action khi có thông báo success từ sv trả về
+                                this.props.dispatch({
+                                  type: "SAVE_ID",
+                                  user_id: result.id
+                                });
+                                this.props.dispatch({
+                                  type: "SAVE_NAME",
+                                  user_name: result.name
+                                });
+                                this.props.dispatch({
+                                  type: "SAVE_AVATAR",
+                                  user_avatar: result.picture.data.url
+                                });
+                              }
+                            });
                         }
-                      },
-                      responseInfoCallback
-                    );
+                      };
+                      const infoRequest = new GraphRequest("/me", { accessToken: accessToken, parameters: { fields: { string: "id,email,name,picture.type(large)" } } }, responseInfoCallback);
 
-                    // Start the graph request.
-                    new GraphRequestManager().addRequest(infoRequest).start();
+                      // Start the graph request.
+                      new GraphRequestManager()
+                        .addRequest(infoRequest)
+                        .start();
+                    });
+                  }
+                }} onLogoutFinished={() => {
+                  this.props.dispatch({ type: "SAVE_ID", user_id: "" });
+                  this.props.dispatch({
+                    type: "SAVE_NAME",
+                    user_name: "USER"
                   });
-                }
-              }}
-              onLogoutFinished={() => {
-                this.props.dispatch({
-                  type: "SAVE_ID",
-                  user_id: ''
-                });
-                this.props.dispatch({
-                  type: "SAVE_NAME",
-                  user_name: 'USER'
-                });
-                this.props.dispatch({
-                  type: "SAVE_AVATAR",
-                  user_avatar: ''
-                });
-              }}
-            />
-          </View>
-        </View>
-        <View style={{ flex: 3 }} />
-      </View>
-    );
+                  this.props.dispatch({
+                    type: "SAVE_AVATAR",
+                    user_avatar: ""
+                  });
+                }} />
+            </View>
+          </Content>
+        </Header>
+
+        <Content>
+          <List>
+            <Button transparent dark onPress={() => {
+                this.props.navigation.navigate("HomeScreen");
+              }}>
+              <Icon name="home" />
+              <Text style={styles.text}>Trang chủ</Text>
+            </Button>
+
+            {this.props.myUser_id !== "" ? <Button transparent dark onPress={() => {
+                  this.props.navigation.navigate("HomeScreen");
+                }}>
+                <Icon name="home" />
+                <Text style={styles.text}>Cá nhân</Text>
+              </Button> : null}
+
+            <Button transparent dark onPress={() => {
+                this.props.navigation.navigate("HomeScreen");
+              }}>
+              <Icon name="unlock" />
+              <Text style={styles.text}>Kĩ thuật cơ bản</Text>
+            </Button>
+            <Button transparent dark onPress={() => {
+                this.props.navigation.navigate("HomeScreen");
+              }}>
+              <Icon name="star" />
+              <Text style={styles.text}>Kĩ thuật nâng cao</Text>
+            </Button>
+            <Button transparent dark onPress={() => {
+                this.props.navigation.navigate("HomeScreen");
+              }}>
+              <Icon name="home" />
+              <Text style={styles.text}>Hội nhóm</Text>
+            </Button>
+            <Button transparent dark onPress={() => {
+                this.props.navigation.navigate("HomeScreen");
+              }}>
+              <Icon name="home" />
+              <Text style={styles.text}>Góc tư vấn</Text>
+            </Button>
+            <Button transparent dark onPress={() => {
+                this.props.navigation.navigate("HomeScreen");
+              }}>
+              <Icon name="heart" />
+              <Text style={styles.text} >Liên hệ</Text>
+            </Button>
+          </List>
+        </Content>
+        <Footer style={styles.footer}>
+          <Text style={styles.footer_text}>Ver 1.0</Text>
+        </Footer>
+      </Container>;
   }
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
-    backgroundColor: "#F5FCFF"
-  },
-  infoUser: {
-    flex: 1,
-    backgroundColor: "#F5F5"
+  header:{
+     height: 150 ,
+    backgroundColor: '#404040'
   },
   avatar: {
-    flex: 1,
-
-    position: "absolute",
-    top:5,
-    alignSelf: "center"
-  },
-  image_avatar: {
-    width: 80,
-    height: 80,
-    borderRadius: 50,
+    alignSelf: "center",
+    top: 7,
     borderWidth: 3,
     borderColor: "#FFF"
   },
-
-  user_name: {
-    alignItems: "center",
-    flex: 3,
-    justifyContent: "flex-end"
+  username: {
+    alignSelf: "center",
+    color: "#fff",
+    fontWeight: "bold",
+    padding: 7
   },
   buttonLoginfb: {
-    justifyContent: "flex-end",
-    flex: 1,
-    alignItems: "center"
+    alignSelf: "center",
+    
+  },
+  footer: {
+   height: 30,
+   backgroundColor: '#404040',
+   
+  },
+  footer_text:{
+    
+    fontFamily: "carbon bl",
+    color: 'white'
+  },
+  text:{
+    fontFamily: "Crabmeal",
   }
+ 
 });
 function mapStateToProps(state) {
   return {
