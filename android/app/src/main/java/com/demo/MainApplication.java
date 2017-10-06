@@ -3,6 +3,7 @@ package com.demo;
 import android.app.Application;
 
 import com.facebook.react.ReactApplication;
+import com.reactnativecomponent.splashscreen.RCTSplashScreenPackage;
 
 
 import com.facebook.react.ReactNativeHost;
@@ -41,6 +42,7 @@ public class MainApplication extends Application implements ReactApplication {
         return Arrays.<ReactPackage>asList(
             //new SplashScreenReactPackage(), //splashcreen neos add
             new MainReactPackage(),
+            new RCTSplashScreenPackage(),
             
             
         
