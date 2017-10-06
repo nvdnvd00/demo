@@ -43,9 +43,7 @@ public class MainApplication extends Application implements ReactApplication {
             //new SplashScreenReactPackage(), //splashcreen neos add
             new MainReactPackage(),
             new RCTSplashScreenPackage(),
-            
-            
-        
+         
             new FBSDKPackage(mCallbackManager)
         );
       }

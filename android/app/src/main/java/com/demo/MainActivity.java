@@ -1,6 +1,7 @@
 package com.demo;
 import android.os.Bundle;
 import com.facebook.react.ReactActivity;
+import com.reactnativecomponent.splashscreen.RCTSplashScreen;
 
 
 import android.content.Intent;
@@ -16,6 +17,7 @@ public class MainActivity extends ReactActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
        //SplashScreen.show(this);  // here
+       RCTSplashScreen.openSplashScreen(this); 
        super.onCreate(savedInstanceState);
     }
     /**
