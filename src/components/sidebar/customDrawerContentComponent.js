@@ -173,7 +173,7 @@ class CustomDrawerContentComponent extends Component {
                           fetch(CONFIG.API_URL + "/users/login", {
                             method: "post",
                             headers: {
-                              Accept: "application/json",
+                              'Accept': "application/json",
                               "Content-Type": "application/json"
                             },
                             body: JSON.stringify({
