@@ -29,10 +29,89 @@ import { connect } from "react-redux";
 class CustomDrawerContentComponent extends Component {
   constructor(props) {
     super(props);
+    this.state = {
+      tokenn: "~"
+    };
+  }
+  componentDidMount() {
+    AccessToken.getCurrentAccessToken().then(data => {
+      if (data == null) {
+        return;
+      }
+      if (data !== undefined) this.setState({ tokenn: data.accessToken });
+      const infoRequest_mount = new GraphRequest(
+        "/me",
+        {
+          httpMethod: "GET",
+          version: "v2.10",
+          parameters: {
+            fields: {
+              string: "id,email,name,picture.type(large)"
+            }
+          },
+          accessToken: this.state.tokenn
+        },
+        (err, result) => {
+          if (err) {
+            alert("lỗi");
+          } else {
+            this.props.dispatch({
+              type: "SAVE_ID",
+              user_id: result.id
+            });
+            this.props.dispatch({
+              type: "SAVE_NAME",
+              user_name: result.name
+            });
+            this.props.dispatch({
+              type: "SAVE_AVATAR",
+              user_avatar: result.picture.data.url
+            });
+          }
+        }
+      );
+      new GraphRequestManager().addRequest(infoRequest_mount).start();
+    });
   }
 
-  componentDidMount() {
-    LoginManager.logOut();
+  _loginFb() {
+    LoginManager.logInWithReadPermissions(["public_profile", "email"]);
+    AccessToken.getCurrentAccessToken().then(data => {
+     
+      this.setState({ tokenn: data.accessToken });
+      const infoRequest_mount = new GraphRequest(
+        "/me",
+        {
+          httpMethod: "GET",
+          version: "v2.10",
+          parameters: {
+            fields: {
+              string: "id,email,name,picture.type(large)"
+            }
+          },
+          accessToken: this.state.tokenn
+        },
+        (err, result) => {
+          if (err) {
+            alert("lỗi");
+          } else {
+            this.props.dispatch({
+              type: "SAVE_ID",
+              user_id: result.id
+            });
+            this.props.dispatch({
+              type: "SAVE_NAME",
+              user_name: result.name
+            });
+            this.props.dispatch({
+              type: "SAVE_AVATAR",
+              user_avatar: result.picture.data.url
+            });
+          }
+        }
+      );
+      new GraphRequestManager().addRequest(infoRequest_mount).start();
+    });
   }
 
   render() {
@@ -78,6 +157,19 @@ class CustomDrawerContentComponent extends Component {
                               error.toString()
                           );
                         } else {
+                          this.props.dispatch({
+                            type: "SAVE_ID",
+                            user_id: result.id
+                          });
+                          this.props.dispatch({
+                            type: "SAVE_NAME",
+                            user_name: result.name
+                          });
+                          this.props.dispatch({
+                            type: "SAVE_AVATAR",
+                            user_avatar: result.picture.data.url
+                          });
+
                           fetch(CONFIG.API_URL + "/users/login", {
                             method: "post",
                             headers: {
@@ -91,24 +183,8 @@ class CustomDrawerContentComponent extends Component {
                               avatar: result.picture.data.url
                             })
                           })
-                            .then(response => response.json())
-                            .then(res => {
-                              if (res.success === true) {
-                                //action khi có thông báo success từ sv trả về
-                                this.props.dispatch({
-                                  type: "SAVE_ID",
-                                  user_id: result.id
-                                });
-                                this.props.dispatch({
-                                  type: "SAVE_NAME",
-                                  user_name: result.name
-                                });
-                                this.props.dispatch({
-                                  type: "SAVE_AVATAR",
-                                  user_avatar: result.picture.data.url
-                                });
-                              }
-                            });
+                            
+                          
                         }
                       };
                       const infoRequest = new GraphRequest(
@@ -125,6 +201,7 @@ class CustomDrawerContentComponent extends Component {
                       );
 
                       // Start the graph request.
+                      
                       new GraphRequestManager().addRequest(infoRequest).start();
                     });
                   }
@@ -141,6 +218,7 @@ class CustomDrawerContentComponent extends Component {
                   });
                 }}
               />
+              
             </View>
           </Content>
         </Header>
@@ -221,6 +299,7 @@ class CustomDrawerContentComponent extends Component {
               <Icon name="heart" />
               <Text style={styles.text}>Liên hệ</Text>
             </Button>
+            
           </List>
         </Content>
         <Footer style={styles.footer}>
