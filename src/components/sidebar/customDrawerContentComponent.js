@@ -115,32 +115,16 @@ class CustomDrawerContentComponent extends Component {
   }
 
   render() {
-    return (
-      <Container>
+    return <Container>
         <Header style={styles.header}>
+          <Image style={{ position: "absolute", width: 220, height: 150 }} source={require("./images/sidebar_header_bg.png")} />
           <Content>
-            {this.props.myUser_avatar !== "" ? (
-              <Thumbnail
-                style={styles.avatar}
-                large
-                source={{ uri: this.props.myUser_avatar }}
-              />
-            ) : (
-              <Thumbnail
-                style={styles.avatar}
-                large
-                source={require("./images/avatarUnknown.png")}
-              />
-            )}
-            {this.props.myUser_name !== "" ? (
-              <Text style={styles.username}>{this.props.myUser_name}</Text>
-            ) : (
-              <Text style={styles.username}>USER</Text>
-            )}
+            {this.props.myUser_avatar !== "" ? <Thumbnail style={styles.avatar} large source={{ uri: this.props.myUser_avatar }} /> : <Thumbnail style={styles.avatar} large source={require("./images/avatarUnknown.png")} />}
+            {this.props.myUser_name !== "" ? <Text style={styles.username}>
+                {this.props.myUser_name}
+              </Text> : <Text style={styles.username}>USER</Text>}
             <View style={styles.buttonLoginfb}>
-              <LoginButton
-                readPermissions={["public_profile", "email"]}
-                onLoginFinished={(error, result) => {
+              <LoginButton readPermissions={["public_profile", "email"]} onLoginFinished={(error, result) => {
                   if (error) {
                     alert("Lỗi đăng nhập " + result.error);
                   } else if (result.isCancelled) {
@@ -152,10 +136,7 @@ class CustomDrawerContentComponent extends Component {
                       const responseInfoCallback = (error, result) => {
                         if (error) {
                           console.log(error);
-                          alert(
-                            "Lỗi khi lấy dữ liệu từ facebook: " +
-                              error.toString()
-                          );
+                          alert("Lỗi khi lấy dữ liệu từ facebook: " + error.toString());
                         } else {
                           this.props.dispatch({
                             type: "SAVE_ID",
@@ -173,7 +154,7 @@ class CustomDrawerContentComponent extends Component {
                           fetch(CONFIG.API_URL + "/users/login", {
                             method: "post",
                             headers: {
-                              'Accept': "application/json",
+                              Accept: "application/json",
                               "Content-Type": "application/json"
                             },
                             body: JSON.stringify({
@@ -182,31 +163,19 @@ class CustomDrawerContentComponent extends Component {
                               email: result.email,
                               avatar: result.picture.data.url
                             })
-                          })
-                            
-                          
+                          });
                         }
                       };
-                      const infoRequest = new GraphRequest(
-                        "/me",
-                        {
-                          accessToken: accessToken,
-                          parameters: {
-                            fields: {
-                              string: "id,email,name,picture.type(large)"
-                            }
-                          }
-                        },
-                        responseInfoCallback
-                      );
+                      const infoRequest = new GraphRequest("/me", { accessToken: accessToken, parameters: { fields: { string: "id,email,name,picture.type(large)" } } }, responseInfoCallback);
 
                       // Start the graph request.
-                      
-                      new GraphRequestManager().addRequest(infoRequest).start();
+
+                      new GraphRequestManager()
+                        .addRequest(infoRequest)
+                        .start();
                     });
                   }
-                }}
-                onLogoutFinished={() => {
+                }} onLogoutFinished={() => {
                   this.props.dispatch({ type: "SAVE_ID", user_id: "" });
                   this.props.dispatch({
                     type: "SAVE_NAME",
@@ -216,104 +185,71 @@ class CustomDrawerContentComponent extends Component {
                     type: "SAVE_AVATAR",
                     user_avatar: ""
                   });
-                }}
-              />
-              
+                }} />
             </View>
           </Content>
         </Header>
 
         <Content>
           <List>
-            <Button
-              transparent
-              dark
-              onPress={() => {
+            <Button transparent dark onPress={() => {
                 this.props.navigation.navigate("HomeScreen");
-              }}
-            >
+              }}>
               <Icon name="home" />
               <Text style={styles.text}>Trang chủ</Text>
             </Button>
 
-            {this.props.myUser_id !== "" ? (
-              <Button
-                transparent
-                dark
-                onPress={() => {
+            {this.props.myUser_id !== "" ? <Button transparent dark onPress={() => {
                   this.props.navigation.navigate("HomeScreen");
-                }}
-              >
+                }}>
                 <Icon name="home" />
                 <Text style={styles.text}>Cá nhân</Text>
-              </Button>
-            ) : null}
+              </Button> : null}
 
-            <Button
-              transparent
-              dark
-              onPress={() => {
+            <Button transparent dark onPress={() => {
                 this.props.navigation.navigate("HomeScreen");
-              }}
-            >
-              <Icon name="unlock" />
-              <Text style={styles.text}>Kĩ thuật cơ bản</Text>
+              }}>
+              <Icon name="home" />
+              <Text style={styles.text}>Cẩm nang</Text>
             </Button>
-            <Button
-              transparent
-              dark
-              onPress={() => {
+            <Button transparent dark onPress={() => {
                 this.props.navigation.navigate("HomeScreen");
-              }}
-            >
-              <Icon name="star" />
-              <Text style={styles.text}>Kĩ thuật nâng cao</Text>
-            </Button>
-            <Button
-              transparent
-              dark
-              onPress={() => {
-                this.props.navigation.navigate("HomeScreen");
-              }}
-            >
+              }}>
               <Icon name="home" />
               <Text style={styles.text}>Hội nhóm</Text>
             </Button>
-            <Button
-              transparent
-              dark
-              onPress={() => {
+            <Button transparent dark onPress={() => {
                 this.props.navigation.navigate("HomeScreen");
-              }}
-            >
+              }}>
               <Icon name="home" />
-              <Text style={styles.text}>Góc tư vấn</Text>
+              <Text style={styles.text}>Tư vấn</Text>
             </Button>
-            <Button
-              transparent
-              dark
-              onPress={() => {
+            <Button transparent dark onPress={() => {
                 this.props.navigation.navigate("HomeScreen");
-              }}
-            >
+              }}>
+              <Icon name="home" />
+              <Text style={styles.text}>Chợ trời</Text>
+            </Button>
+            <Button transparent dark onPress={() => {
+                this.props.navigation.navigate("HomeScreen");
+              }}>
               <Icon name="heart" />
               <Text style={styles.text}>Liên hệ</Text>
             </Button>
-            
           </List>
         </Content>
         <Footer style={styles.footer}>
+          <Image style={{ position: "absolute", width: 220, height: 150 }} source={require("./images/sidebar_header_bg.png")} />
           <Text style={styles.footer_text}>Ver 1.0</Text>
         </Footer>
-      </Container>
-    );
+      </Container>;
   }
 }
 
 const styles = StyleSheet.create({
   header: {
     height: 150,
-    backgroundColor: "#404040"
+    //backgroundColor: "#404040"
   },
   avatar: {
     alignSelf: "center",

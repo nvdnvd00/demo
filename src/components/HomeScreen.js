@@ -22,16 +22,12 @@ export default class Home extends Component {
   componentDidMount() {}
 
   render() {
-    return (
-      <Container>
-        <Header style={styles.container} hasTabs>
+    return <Container>
+        <Header style={styles.header} hasTabs>
           <Left>
-            <Button
-              transparent
-              onPress={() => {
+            <Button transparent onPress={() => {
                 this.props.navigation.navigate("DrawerOpen");
-              }}
-            >
+              }}>
               <Icon name="menu" />
             </Button>
           </Left>
@@ -45,18 +41,22 @@ export default class Home extends Component {
           </Right>
         </Header>
         <Tabs renderTabBar={() => <ScrollableTab />}>
-          <Tab heading="Tab1" />
+          <Tab heading="Tab1" style={styles.tab} />
           <Tab heading="Tab2" />
           <Tab heading="Tab3" />
           <Tab heading="Tab4" />
           <Tab heading="Tab5" />
         </Tabs>
-      </Container>
-    );
+      </Container>;
   }
 }
 const styles = StyleSheet.create({
-  container: {
+  header: {
+    height: 300,
     backgroundColor: "#404040"
+  },
+  tab: {
+    height: 50,
+    backgroundColor: "green"
   }
 });
