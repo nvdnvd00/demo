@@ -12,7 +12,7 @@ import {
   Body,
   Title
 } from "native-base";
-import { StyleSheet, Text, View, TouchableOpacity } from "react-native";
+import { StyleSheet, Text, View, TouchableOpacity,Image,Dimensions } from "react-native";
 
 export default class Home extends Component {
   constructor(props) {
@@ -24,7 +24,9 @@ export default class Home extends Component {
   render() {
     return (
       <Container>
-        <Header style={styles.header} hasTabs>
+        {/* background */}
+        <Image style={{position:'absolute',width: Dimensions.get('screen').width,height:Dimensions.get('screen').height, opacity: 0.7 }}source={require('../images/main_bg.jpg')}/> 
+        <Header style={styles.header}>
           <Left>
             <Button
               transparent
@@ -44,21 +46,17 @@ export default class Home extends Component {
             </Button>
           </Right>
         </Header>
-        <Tabs renderTabBar={() => <ScrollableTab />}>
-          <Tab heading="Tab1" style={styles.tab} />
-          <Tab heading="Tab2" />
-          <Tab heading="Tab3" />
-          <Tab heading="Tab4" />
-          <Tab heading="Tab5" />
-        </Tabs>
+        
       </Container>
     );
   }
 }
 const styles = StyleSheet.create({
   header: {
-    height: 300,
-    backgroundColor: "#404040"
+    height: 40,
+    backgroundColor: "transparent",
+    borderRadius:50,
+    marginTop:5, marginLeft: 5, marginRight: 5
   },
   tab: {
     height: 50,
