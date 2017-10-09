@@ -17,7 +17,7 @@ module.exports.models = {
   * connections (see `config/connections.js`)                                *
   *                                                                          *
   ***************************************************************************/
-  connection: 'xstorm_app_mysql',
+/*   connection: 'xstorm_app_mysql', */
 
   /***************************************************************************
   *                                                                          *
