@@ -8,7 +8,7 @@
 module.exports = {
 	add: function(req, res) {
         var name=req.param('name');
-        var url=req.param('');
+        var url=req.param('url');
         listOfSlalomSkills
           .create({ name: name, url: url })
           .exec(function(err, created) {
