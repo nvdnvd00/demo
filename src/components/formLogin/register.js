@@ -2,40 +2,44 @@
 import React, { Component } from 'react';
 import { View, StyleSheet } from 'react-native';
 import { Container, Input, Text, Button } from 'native-base';
+import BackgroundImage from './backgroundImage';
+
 
 // create a component
 class formRegister extends Component {
     render() {
         return (
-            <Container style={styles.container}>
+            <BackgroundImage>
+                <Container style={styles.container}>
 
-                <View style={{ height: 50 }}>
-                    <Input style={styles.input} placeholder="Tên đăng nhập" />
-                </View>
-                <View style={{ height: 10 }}></View>
-                <View style={{ height: 50 }}>
-                    <Input style={styles.input} placeholder="Mật khẩu" />
-                </View>
-                <View style={{ height: 10 }}></View>
-                <View style={{ height: 50 }}>
-                    <Input style={styles.input} placeholder="Xác nhận mật khẩu" />
-                </View>
-                <View style={{ height: 10 }}></View>
-                <View style={{ height: 50 }}>
-                    <Input style={styles.input} placeholder="Email" />
-                </View>
-                <View style={{ height: 10 }}></View>
-                <View style={{ flexDirection: 'row' }}>
-                    <Button rounded style={{ alignSelf: 'center' }}>
-                        <Text style={{ width: 150, textAlign: 'center', fontWeight: 'bold' }}>Đăng kí</Text>
+                    <View style={{ height: 50 }}>
+                        <Input style={styles.input} placeholder="Tên đăng nhập" />
+                    </View>
+                    <View style={{ height: 10 }}></View>
+                    <View style={{ height: 50 }}>
+                        <Input style={styles.input} placeholder="Mật khẩu" />
+                    </View>
+                    <View style={{ height: 10 }}></View>
+                    <View style={{ height: 50 }}>
+                        <Input style={styles.input} placeholder="Xác nhận mật khẩu" />
+                    </View>
+                    <View style={{ height: 10 }}></View>
+                    <View style={{ height: 50 }}>
+                        <Input style={styles.input} placeholder="Email" />
+                    </View>
+                    <View style={{ height: 10 }}></View>
+                    <View style={{ flexDirection: 'row' }}>
+                        <Button rounded style={{ alignSelf: 'center' }}>
+                            <Text style={{ width: 150, textAlign: 'center', fontWeight: 'bold' }}>Đăng kí</Text>
 
-                    </Button>
-                    <View style={{ width: 10 }}></View>
-                    <Button rounded danger style={{ alignSelf: 'center' }} onPress={() => { this.props.navigation.goBack() }}>
-                        <Text style={{ width: 150, textAlign: 'center', fontWeight: 'bold' }}>Hủy</Text>
-                    </Button>
-                </View>
-            </Container>
+                        </Button>
+                        <View style={{ width: 10 }}></View>
+                        <Button rounded danger style={{ alignSelf: 'center' }} onPress={() => { this.props.navigation.goBack() }}>
+                            <Text style={{ width: 150, textAlign: 'center', fontWeight: 'bold' }}>Hủy</Text>
+                        </Button>
+                    </View>
+                </Container>
+            </BackgroundImage>
         );
     }
 }
@@ -46,7 +50,7 @@ const styles = StyleSheet.create({
 
         justifyContent: 'center',
         alignItems: 'center',
-        backgroundColor: 'black',
+        backgroundColor: 'transparent',
     },
     input: {
         backgroundColor: 'white', borderRadius: 30, width: 300, textAlign: 'center'

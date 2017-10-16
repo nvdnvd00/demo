@@ -16,11 +16,21 @@ import {
   GraphRequest
 } from "react-native-fbsdk";
 
+
+import CustomDrawerContentComponent from './sidebar/customDrawerContentComponent';
+
+import {connect} from 'react-redux';
+
+
+
 import Home from "./HomeScreen";
 import formRegister from "./formLogin/register";
 import formLogin from "./formLogin/login"
-import CustomDrawerContentComponent from './sidebar/customDrawerContentComponent';
-import {connect} from 'react-redux';
+
+import mainBook from './Book/mainBook';
+
+
+
 const MyStackNavigator = StackNavigator(
   {
     HomeScreen: {
@@ -31,6 +41,9 @@ const MyStackNavigator = StackNavigator(
     },
     formLoginScreen: {
       screen: formLogin
+    },
+    mainBookScreen: {
+      screen: mainBook
     }
   },
   {

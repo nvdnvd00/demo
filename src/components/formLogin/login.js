@@ -1,12 +1,15 @@
 //import liraries
 import React, { Component } from 'react';
-import { View, StyleSheet } from 'react-native';
+import { View, StyleSheet,Image } from 'react-native';
 import { Container, Input, Text, Button } from 'native-base';
+
+import BackgroundImage from './backgroundImage';
 
 // create a component
 class formLogin extends Component {
     render() {
         return (
+            <BackgroundImage>
             <Container style={styles.container}>
 
                 <View style={{ height: 50 }}>
@@ -30,6 +33,7 @@ class formLogin extends Component {
                 </View>
 
             </Container>
+            </BackgroundImage>
         );
     }
 }
@@ -40,7 +44,7 @@ const styles = StyleSheet.create({
 
         justifyContent: 'center',
         alignItems: 'center',
-        backgroundColor: 'black',
+        backgroundColor: 'transparent',
     },
     input: {
         backgroundColor: 'white', borderRadius: 30, width: 300, textAlign: 'center'

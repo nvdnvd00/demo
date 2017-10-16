@@ -20,6 +20,7 @@ import {
   Image,
   Dimensions,
 } from "react-native";
+import MenuHomeScreen from './MenuHomeScreen';
 
 export default class Home extends Component {
   constructor(props) {
@@ -66,9 +67,10 @@ export default class Home extends Component {
           source={require("../images/menu_btn.png")}
         />
         </TouchableOpacity>
-        <View style={styles.circle} ref="firstcircle" />
+        {/* <View style={styles.circle} ref="firstcircle" />
         <View style={styles.circle2} />
-        <View style={styles.circle3} />
+        <View style={styles.circle3} /> */}
+      <MenuHomeScreen/>
       </Container>
     );
   }

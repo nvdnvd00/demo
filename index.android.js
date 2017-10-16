@@ -24,7 +24,7 @@ const reducer = (state = defaultState, action) => {
   if (action.type === "SAVE_AVATAR")
     return { ...state, user_avatar: action.user_avatar };
   if (action.type === "CHANGE_LOGIN_STATUS")
-    return { ...state, loginStatus: !loginStatus };
+    return { ...state, loginStatus: action.loginStatus };
   return state;
 };
 const store = createStore(reducer);

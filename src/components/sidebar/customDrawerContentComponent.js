@@ -34,7 +34,7 @@ class CustomDrawerContentComponent extends Component {
       tokenn: "~"
     };
   }
-  componentDidMount() {
+  componentWillMount() {
     AccessToken.getCurrentAccessToken().then(data => {
       if (data == null) {
         return;
@@ -68,6 +68,10 @@ class CustomDrawerContentComponent extends Component {
               type: "SAVE_AVATAR",
               user_avatar: result.picture.data.url
             });
+            this.props.dispatch({
+              type:"CHANGE_LOGIN_STATUS" ,
+              loginStatus: true
+            });
           }
         }
       );
@@ -75,7 +79,7 @@ class CustomDrawerContentComponent extends Component {
     });
   }
 
-  _loginFb() {
+  /* _loginFb() {
     LoginManager.logInWithReadPermissions(["public_profile", "email"]);
     AccessToken.getCurrentAccessToken().then(data => {
 
@@ -113,7 +117,7 @@ class CustomDrawerContentComponent extends Component {
       );
       new GraphRequestManager().addRequest(infoRequest_mount).start();
     });
-  }
+  } */
 
   render() {
     return <Container>
@@ -151,6 +155,10 @@ class CustomDrawerContentComponent extends Component {
                         type: "SAVE_AVATAR",
                         user_avatar: result.picture.data.url
                       });
+                      this.props.dispatch({
+                        type: "CHANGE_LOGIN_STATUS",
+                        loginStatus: true
+                      });
 
                       fetch(CONFIG.API_URL + "/users/login", {
                         method: "post",
@@ -186,6 +194,10 @@ class CustomDrawerContentComponent extends Component {
                 type: "SAVE_AVATAR",
                 user_avatar: ""
               });
+              this.props.dispatch({
+              type:"CHANGE_LOGIN_STATUS",
+              loginStatus: false
+            });
             }} />
           </View>
         </Content>
@@ -193,7 +205,7 @@ class CustomDrawerContentComponent extends Component {
 
       <Content>
        
-        <View style={{ paddingTop:10 ,flex: 1, flexDirection: 'row' }}>
+        <View style={{ paddingTop:20 ,flex: 1, flexDirection: 'row' }}>
           {this.props.myUser_id !== "" ? <View style={{ flex: 1 }}>
             <TouchableOpacity 
               onPress={() => {
@@ -231,11 +243,11 @@ class CustomDrawerContentComponent extends Component {
 
 
 
-        <View style={{ paddingTop:10,flex: 1, flexDirection: 'row' }}>
+        <View style={{ paddingTop:20,flex: 1, flexDirection: 'row' }}>
          <View style={{ flex: 1 }}>
             <TouchableOpacity 
               onPress={() => {
-                this.props.navigation.navigate("HomeScreen");
+                this.props.navigation.navigate("mainBookScreen");
               }}>
               <Image style={{
                 width: 40,
@@ -268,7 +280,7 @@ class CustomDrawerContentComponent extends Component {
         </View>
 
 
-        <View style={{ paddingTop:10,flex: 1, flexDirection: 'row' }}>
+        <View style={{ paddingTop:20,flex: 1, flexDirection: 'row' }}>
          <View style={{ flex: 1 }}>
             <TouchableOpacity 
               onPress={() => {
@@ -304,7 +316,7 @@ class CustomDrawerContentComponent extends Component {
           </View>
         </View>
 
-        <View style={{ paddingTop:10,flex: 1, flexDirection: 'row' }}>
+        <View style={{ paddingTop:20,flex: 1, flexDirection: 'row' }}>
          <View style={{ flex: 1 }}>
             <TouchableOpacity 
               onPress={() => {
@@ -327,19 +339,31 @@ class CustomDrawerContentComponent extends Component {
 
 
       </Content>
-      <Footer style={styles.footer}>
+      {!this.props.myLogin_status? 
+      <View style={styles.footer}>
         <Image style={{ position: "absolute", width: 220, height: 150 }} source={require("./images/sidebar_header_bg.png")} />
-        <Left>
-        <Button light onPress={ () => {this.props.navigation.navigate("formLoginScreen")}}>
-          <Text>Đăng nhập</Text>
-        </Button>
-        </Left>
-        <Right>
-        <Button light onPress={() => { this.props.navigation.navigate("formRegisterScreen") }}>
-          <Text>Đăng kí</Text>
-        </Button>
-        </Right>
-      </Footer>
+        <View style={{flex:1,justifyContent:'center'}}>
+        <TouchableOpacity style={{borderWidth: 2,borderColor:"white",backgroundColor:'#2e2eb8',borderRadius:25,padding:5,margin:20}} onPress={ () => {this.props.navigation.navigate("formLoginScreen")}}>
+          <Text style={{textAlign:'center',color:'white'}}>Đăng nhập</Text>
+        </TouchableOpacity>
+        </View>
+        <View style={{flex:0.8,justifyContent:'center'}}>
+        <TouchableOpacity style={{borderWidth: 2,borderColor:"white",backgroundColor:'grey',borderRadius:25,padding:5,margin:20}} onPress={() => { this.props.navigation.navigate("formRegisterScreen") }}>
+          <Text style={{textAlign:'center',color:'white'}}>Đăng kí</Text>
+        </TouchableOpacity>
+        </View>
+      </View>
+:
+      <View style={styles.footer}>
+        <Image style={{ position: "absolute", width: 220, height: 150 }} source={require("./images/sidebar_header_bg.png")} />
+        <View style={{flex:1,justifyContent:'center'}}>
+        <TouchableOpacity style={{borderWidth: 2,borderColor:"white",backgroundColor:'grey',borderRadius:25,padding:5,margin:20}} onPress={ () => {this.props.navigation.navigate("formLoginScreen")}}>
+          <Text style={{textAlign:'center',color:'white'}}>Đăng xuất</Text>
+        </TouchableOpacity>
+        </View>
+       
+      </View>}
+
     </Container>
   }
 }
@@ -365,8 +389,11 @@ const styles = StyleSheet.create({
     alignSelf: "center"
   },
   footer: {
+    
     height: 100,
-    backgroundColor: "#404040"
+    backgroundColor: "#404040",
+   
+    
   },
 
   text: {
@@ -378,7 +405,8 @@ function mapStateToProps(state) {
   return {
     myUser_id: state.user_id,
     myUser_name: state.user_name,
-    myUser_avatar: state.user_avatar
+    myUser_avatar: state.user_avatar,
+    myLogin_status: state.loginStatus
   };
 }
 export default connect(mapStateToProps)(CustomDrawerContentComponent); //connect redux to component
