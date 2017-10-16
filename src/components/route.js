@@ -17,12 +17,20 @@ import {
 } from "react-native-fbsdk";
 
 import Home from "./HomeScreen";
+import formRegister from "./formLogin/register";
+import formLogin from "./formLogin/login"
 import CustomDrawerContentComponent from './sidebar/customDrawerContentComponent';
 import {connect} from 'react-redux';
 const MyStackNavigator = StackNavigator(
   {
     HomeScreen: {
       screen: Home
+    },
+    formRegisterScreen: {
+      screen: formRegister
+    },
+    formLoginScreen: {
+      screen: formLogin
     }
   },
   {

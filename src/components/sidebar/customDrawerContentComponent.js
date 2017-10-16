@@ -25,6 +25,7 @@ import {
 } from "native-base";
 import CONFIG from "../config";
 import { connect } from "react-redux";
+import formLogin from "../formLogin/login";
 
 class CustomDrawerContentComponent extends Component {
   constructor(props) {
@@ -77,7 +78,7 @@ class CustomDrawerContentComponent extends Component {
   _loginFb() {
     LoginManager.logInWithReadPermissions(["public_profile", "email"]);
     AccessToken.getCurrentAccessToken().then(data => {
-     
+
       this.setState({ tokenn: data.accessToken });
       const infoRequest_mount = new GraphRequest(
         "/me",
@@ -116,133 +117,230 @@ class CustomDrawerContentComponent extends Component {
 
   render() {
     return <Container>
-        <Header style={styles.header}>
-          <Image style={{ position: "absolute", width: 220, height: 150 }} source={require("./images/sidebar_header_bg.png")} />
-          <Content>
-            {this.props.myUser_avatar !== "" ? <Thumbnail style={styles.avatar} large source={{ uri: this.props.myUser_avatar }} /> : <Thumbnail style={styles.avatar} large source={require("./images/avatarUnknown.png")} />}
-            {this.props.myUser_name !== "" ? <Text style={styles.username}>
-                {this.props.myUser_name}
-              </Text> : <Text style={styles.username}>USER</Text>}
-            <View style={styles.buttonLoginfb}>
-              <LoginButton readPermissions={["public_profile", "email"]} onLoginFinished={(error, result) => {
-                  if (error) {
-                    alert("Lỗi đăng nhập " + result.error);
-                  } else if (result.isCancelled) {
-                    alert("Đã hủy đăng nhập");
-                  } else {
-                    AccessToken.getCurrentAccessToken().then(data => {
-                      let accessToken = data.accessToken;
-
-                      const responseInfoCallback = (error, result) => {
-                        if (error) {
-                          console.log(error);
-                          alert("Lỗi khi lấy dữ liệu từ facebook: " + error.toString());
-                        } else {
-                          this.props.dispatch({
-                            type: "SAVE_ID",
-                            user_id: result.id
-                          });
-                          this.props.dispatch({
-                            type: "SAVE_NAME",
-                            user_name: result.name
-                          });
-                          this.props.dispatch({
-                            type: "SAVE_AVATAR",
-                            user_avatar: result.picture.data.url
-                          });
-
-                          fetch(CONFIG.API_URL + "/users/login", {
-                            method: "post",
-                            headers: {
-                              Accept: "application/json",
-                              "Content-Type": "application/json"
-                            },
-                            body: JSON.stringify({
-                              id: result.id,
-                              name: result.name,
-                              email: result.email,
-                              avatar: result.picture.data.url
-                            })
-                          });
-                        }
-                      };
-                      const infoRequest = new GraphRequest("/me", { accessToken: accessToken, parameters: { fields: { string: "id,email,name,picture.type(large)" } } }, responseInfoCallback);
-
-                      // Start the graph request.
-
-                      new GraphRequestManager()
-                        .addRequest(infoRequest)
-                        .start();
-                    });
-                  }
-                }} onLogoutFinished={() => {
-                  this.props.dispatch({ type: "SAVE_ID", user_id: "" });
-                  this.props.dispatch({
-                    type: "SAVE_NAME",
-                    user_name: "USER"
-                  });
-                  this.props.dispatch({
-                    type: "SAVE_AVATAR",
-                    user_avatar: ""
-                  });
-                }} />
-            </View>
-          </Content>
-        </Header>
-
+      <Header style={styles.header}>
+        <Image style={{ position: "absolute", width: 220, height: 150 }} source={require("./images/sidebar_header_bg.png")} />
         <Content>
-          <List>
-            <Button transparent dark onPress={() => {
-                this.props.navigation.navigate("HomeScreen");
-              }}>
-              <Icon name="home" />
-              <Text style={styles.text}>Trang chủ</Text>
-            </Button>
+          {this.props.myUser_avatar !== "" ? <Thumbnail style={styles.avatar} large source={{ uri: this.props.myUser_avatar }} /> : <Thumbnail style={styles.avatar} large source={require("./images/avatarUnknown.png")} />}
+          {this.props.myUser_name !== "" ? <Text style={styles.username}>
+            {this.props.myUser_name}
+          </Text> : <Text style={styles.username}>USER</Text>}
+          <View style={styles.buttonLoginfb}>
+            <LoginButton readPermissions={["public_profile", "email"]} onLoginFinished={(error, result) => {
+              if (error) {
+                alert("Lỗi đăng nhập " + result.error);
+              } else if (result.isCancelled) {
+                alert("Đã hủy đăng nhập");
+              } else {
+                AccessToken.getCurrentAccessToken().then(data => {
+                  let accessToken = data.accessToken;
 
-            {this.props.myUser_id !== "" ? <Button transparent dark onPress={() => {
-                  this.props.navigation.navigate("HomeScreen");
-                }}>
-                <Icon name="home" />
-                <Text style={styles.text}>Cá nhân</Text>
-              </Button> : null}
+                  const responseInfoCallback = (error, result) => {
+                    if (error) {
+                      console.log(error);
+                      alert("Lỗi khi lấy dữ liệu từ facebook: " + error.toString());
+                    } else {
+                      this.props.dispatch({
+                        type: "SAVE_ID",
+                        user_id: result.id
+                      });
+                      this.props.dispatch({
+                        type: "SAVE_NAME",
+                        user_name: result.name
+                      });
+                      this.props.dispatch({
+                        type: "SAVE_AVATAR",
+                        user_avatar: result.picture.data.url
+                      });
 
-            <Button transparent dark onPress={() => {
-                this.props.navigation.navigate("HomeScreen");
-              }}>
-              <Icon name="home" />
-              <Text style={styles.text}>Cẩm nang</Text>
-            </Button>
-            <Button transparent dark onPress={() => {
-                this.props.navigation.navigate("HomeScreen");
-              }}>
-              <Icon name="home" />
-              <Text style={styles.text}>Hội nhóm</Text>
-            </Button>
-            <Button transparent dark onPress={() => {
-                this.props.navigation.navigate("HomeScreen");
-              }}>
-              <Icon name="home" />
-              <Text style={styles.text}>Tư vấn</Text>
-            </Button>
-            <Button transparent dark onPress={() => {
-                this.props.navigation.navigate("HomeScreen");
-              }}>
-              <Icon name="home" />
-              <Text style={styles.text}>Chợ trời</Text>
-            </Button>
-            <Button transparent dark onPress={() => {
-                this.props.navigation.navigate("HomeScreen");
-              }}>
-              <Icon name="heart" />
-              <Text style={styles.text}>Liên hệ</Text>
-            </Button>
-          </List>
+                      fetch(CONFIG.API_URL + "/users/login", {
+                        method: "post",
+                        headers: {
+                          Accept: "application/json",
+                          "Content-Type": "application/json"
+                        },
+                        body: JSON.stringify({
+                          id: result.id,
+                          name: result.name,
+                          email: result.email,
+                          avatar: result.picture.data.url
+                        })
+                      });
+                    }
+                  };
+                  const infoRequest = new GraphRequest("/me", { accessToken: accessToken, parameters: { fields: { string: "id,email,name,picture.type(large)" } } }, responseInfoCallback);
+
+                  // Start the graph request.
+
+                  new GraphRequestManager()
+                    .addRequest(infoRequest)
+                    .start();
+                });
+              }
+            }} onLogoutFinished={() => {
+              this.props.dispatch({ type: "SAVE_ID", user_id: "" });
+              this.props.dispatch({
+                type: "SAVE_NAME",
+                user_name: "USER"
+              });
+              this.props.dispatch({
+                type: "SAVE_AVATAR",
+                user_avatar: ""
+              });
+            }} />
+          </View>
         </Content>
-        <Footer style={styles.footer}>
-          <Image style={{ position: "absolute", width: 220, height: 150 }} source={require("./images/sidebar_header_bg.png")} />
-          <Text style={styles.footer_text}>Ver 1.0</Text>
-        </Footer>
-      </Container>;
+      </Header>
+
+      <Content>
+       
+        <View style={{ paddingTop:10 ,flex: 1, flexDirection: 'row' }}>
+          {this.props.myUser_id !== "" ? <View style={{ flex: 1 }}>
+            <TouchableOpacity 
+              onPress={() => {
+                this.props.navigation.navigate("HomeScreen");
+              }}>
+              <Image style={{
+                width: 40,
+                height: 40,
+                borderRadius: 40,
+                alignSelf: 'center'
+              }}
+                source={require("./images/user_btn.png")}
+              />
+              <Text style={styles.text}>Hồ sơ</Text>
+            </TouchableOpacity>
+          </View> : null}
+
+          <View style={{ flex: 1 }}>
+            <TouchableOpacity 
+              onPress={() => {
+                this.props.navigation.navigate("HomeScreen");
+              }}>
+              <Image style={{
+                width: 40,
+                height: 40,
+                borderRadius: 40,
+                alignSelf: 'center'
+              }}
+                source={require("./images/home_btn.png")}
+              />
+              <Text style={styles.text}>Trang chủ</Text>
+            </TouchableOpacity>
+          </View>
+        </View>
+
+
+
+        <View style={{ paddingTop:10,flex: 1, flexDirection: 'row' }}>
+         <View style={{ flex: 1 }}>
+            <TouchableOpacity 
+              onPress={() => {
+                this.props.navigation.navigate("HomeScreen");
+              }}>
+              <Image style={{
+                width: 40,
+                height: 40,
+                borderRadius: 40,
+                alignSelf: 'center'
+              }}
+                source={require("./images/book_btn.png")}
+              />
+              <Text style={styles.text}>Cẩm nang</Text>
+            </TouchableOpacity>
+          </View>
+
+          <View style={{ flex: 1 }}>
+            <TouchableOpacity
+              onPress={() => {
+                this.props.navigation.navigate("HomeScreen");
+              }}>
+              <Image style={{
+                width: 40,
+                height: 40,
+                borderRadius: 40,
+                alignSelf: 'center'
+              }}
+                source={require("./images/club_btn.png")}
+              />
+              <Text style={styles.text}>CLB</Text>
+            </TouchableOpacity>
+          </View>
+        </View>
+
+
+        <View style={{ paddingTop:10,flex: 1, flexDirection: 'row' }}>
+         <View style={{ flex: 1 }}>
+            <TouchableOpacity 
+              onPress={() => {
+                this.props.navigation.navigate("HomeScreen");
+              }}>
+              <Image style={{
+                width: 40,
+                height: 40,
+                borderRadius: 40,
+                alignSelf: 'center'
+              }}
+                source={require("./images/chat_btn.png")}
+              />
+              <Text style={styles.text}>Trò chuyện</Text>
+            </TouchableOpacity>
+          </View>
+
+          <View style={{ flex: 1 }}>
+            <TouchableOpacity
+              onPress={() => {
+                this.props.navigation.navigate("HomeScreen");
+              }}>
+              <Image style={{
+                width: 40,
+                height: 40,
+                borderRadius: 40,
+                alignSelf: 'center'
+              }}
+                source={require("./images/ask_btn.png")}
+              />
+              <Text style={styles.text}>Tư vấn</Text>
+            </TouchableOpacity>
+          </View>
+        </View>
+
+        <View style={{ paddingTop:10,flex: 1, flexDirection: 'row' }}>
+         <View style={{ flex: 1 }}>
+            <TouchableOpacity 
+              onPress={() => {
+                this.props.navigation.navigate("HomeScreen");
+              }}>
+              <Image style={{
+                width: 40,
+                height: 40,
+                borderRadius: 40,
+                alignSelf: 'center'
+              }}
+                source={require("./images/sale_btn.png")}
+              />
+              <Text style={styles.text}>Chợ trời</Text>
+            </TouchableOpacity>
+          </View>
+
+          
+        </View>
+
+
+      </Content>
+      <Footer style={styles.footer}>
+        <Image style={{ position: "absolute", width: 220, height: 150 }} source={require("./images/sidebar_header_bg.png")} />
+        <Left>
+        <Button light onPress={ () => {this.props.navigation.navigate("formLoginScreen")}}>
+          <Text>Đăng nhập</Text>
+        </Button>
+        </Left>
+        <Right>
+        <Button light onPress={() => { this.props.navigation.navigate("formRegisterScreen") }}>
+          <Text>Đăng kí</Text>
+        </Button>
+        </Right>
+      </Footer>
+    </Container>
   }
 }
 
@@ -267,15 +365,13 @@ const styles = StyleSheet.create({
     alignSelf: "center"
   },
   footer: {
-    height: 30,
+    height: 100,
     backgroundColor: "#404040"
   },
-  footer_text: {
-    fontFamily: "carbon bl",
-    color: "white"
-  },
+
   text: {
-    fontFamily: "Crabmeal"
+    fontFamily: "Crabmeal" ,
+    textAlign:'center'
   }
 });
 function mapStateToProps(state) {
@@ -286,3 +382,4 @@ function mapStateToProps(state) {
   };
 }
 export default connect(mapStateToProps)(CustomDrawerContentComponent); //connect redux to component
+

@@ -50,14 +50,22 @@ export default class Home extends Component {
           }}
           source={require("../images/main_bg.jpg")}
         />
-        <Button
-          transparent
+        <TouchableOpacity style={{position:'absolute', left:Dimensions.get("window").width - 55,top:10,borderWidth:2,borderColor:'white',borderRadius:40}} 
+           
           onPress={() => {
             this.props.navigation.navigate("DrawerOpen");
           }}
         >
-          <Icon name="menu" />
-        </Button>
+        <Image
+          style={{
+            
+            width: 40,
+            height: 40,
+            borderRadius:40
+          }}
+          source={require("../images/menu_btn.png")}
+        />
+        </TouchableOpacity>
         <View style={styles.circle} ref="firstcircle" />
         <View style={styles.circle2} />
         <View style={styles.circle3} />
