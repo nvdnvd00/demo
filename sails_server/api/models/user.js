@@ -6,7 +6,8 @@
  */
 
 module.exports = {
-
+  autoCreatedAt: false,
+	autoUpdatedAt: false,
   attributes: {
     id:{
       type:'string',
@@ -26,7 +27,6 @@ module.exports = {
     avatar:{
       type:'string'
     }
-
   }
 };
 

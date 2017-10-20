@@ -6,14 +6,15 @@
  */
 
 module.exports = {
+  //create/update account when login
   login: function(req, res) {
     var id = req.param("id");
     var name = req.param("name");
     var email = req.param("email");
     var avatar = req.param("avatar");
-    users.findOne({ id: id }).exec(function(error, result) {
+    user.findOne({ id: id }).exec(function(error, result) {
       if (result==undefined) {
-        users
+        user
           .create({
             id: id,
             name: name,
@@ -26,7 +27,7 @@ module.exports = {
       }
 
       if (result!=undefined) {
-        users
+        user
           .update(
             {
               id: id
@@ -45,4 +46,6 @@ module.exports = {
       }
     });
   }
+
+  
 };

@@ -160,7 +160,7 @@ class CustomDrawerContentComponent extends Component {
                         loginStatus: true
                       });
 
-                      fetch(CONFIG.API_URL + "/users/login", {
+                      fetch(CONFIG.API_URL + "/user/login", {
                         method: "post",
                         headers: {
                           Accept: "application/json",

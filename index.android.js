@@ -15,7 +15,7 @@ export default class demo extends Component {
 
 AppRegistry.registerComponent("demo", () => demo);
 
-const defaultState = { user_id: "", user_name: "USER", user_avatar: "", loginStatus: false };
+const defaultState = { user_id: "", user_name: "USER", user_avatar: "", loginStatus: false, listSlalom:[] };
 
 const reducer = (state = defaultState, action) => {
   if (action.type === "SAVE_ID") return { ...state, user_id: action.user_id };

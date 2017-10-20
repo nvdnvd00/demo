@@ -35,8 +35,10 @@ module.exports.routes = {
   '/': {
     view: 'homepage'
   },
-  'post /users/login':'usersController.login',
-  'post /listOfSlalomSkills/add': 'listOfSlalomSkillsController.add',
+  'post /user/login':'userController.login',
+  
+  
+  
 
   /***************************************************************************
   *                                                                          *
