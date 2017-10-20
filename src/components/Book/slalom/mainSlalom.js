@@ -1,8 +1,9 @@
 //import liraries
 import React, { Component } from 'react';
-import { View, Text, StyleSheet, FlatList } from 'react-native';
-import { Container, Header, Tab, Tabs,ScrollableTab } from 'native-base';
-
+import { View, Text, StyleSheet, FlatList,TouchableOpacity, ScrollView } from 'react-native';
+import {  } from 'native-base';
+import CONFIG from '../config';
+import BackgroundImage from "../backgroundImage";
 
 // create a component
 class mainSlalom extends Component {
@@ -13,13 +14,11 @@ class mainSlalom extends Component {
         }
     }
     componentWillMount() {
-        /* fetch(CONFIG.API_URL + "/user") */
-        fetch("https://randomuser.me/api/?results=3")
-        
+        fetch(CONFIG.API_URL + "/skill/get_slalom")    
         .then((response) => response.json())
         .then((responseJson) => {
           this.setState({
-           data:responseJson.results})
+           data:responseJson})
           
         })
         .catch((error) => {
@@ -29,26 +28,36 @@ class mainSlalom extends Component {
     
     render() {
         return (
-            <View style={styles.container}>
-                <FlatList
-                    data={this.state.data}
-                    renderItem={({item})=> <Text>{item.name.first} {item.name.last}</Text>}
-                    keyExtractor={(x,i)=>i }
-                >
+            <BackgroundImage>
+                <ScrollView style={{ backgroundColor: 'transparent', marginLeft: 10, marginRight: 10 }}>
+                    <FlatList
+                        data={this.state.data}
+                        renderItem={({ item }) => 
+                            <View>
+                                <View style={{ height: 10 }} ></View>
+                                <TouchableOpacity style={{borderWidth: 2, borderRadius: 20, borderColor: 'white',backgroundColor:'#4775d1'}} >
+                                   
+                                    <Text style={{  color: 'white', fontSize: 20, fontFamily: "Crabmeal",left:20 }}>{item.name}</Text>
+                                    <Text style={{  color: 'white', fontSize: 20, fontFamily: "Crabmeal",textAlign:'right',right:20 }}>{item.level}</Text>
+                                </TouchableOpacity>
+                            </View>
+                        }                      
+                        keyExtractor={item => item.id}
+                    />
 
-                </FlatList>
-            </View>
+                   
+                </ScrollView>
+            </BackgroundImage>
         );
     }
 }
 
 // define your styles
 const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        justifyContent: 'center',
+    container: {      
         alignItems: 'center',
-        backgroundColor: '#2c3e50',
+        backgroundColor:'transparent'
+
     },
 });
 

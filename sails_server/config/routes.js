@@ -36,6 +36,7 @@ module.exports.routes = {
     view: 'homepage'
   },
   'post /user/login':'userController.login',
+  '/skill/get_slalom':'SkillController.get_slalom',
   
   
   
