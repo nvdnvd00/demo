@@ -1,14 +1,15 @@
 //import liraries
 import React, { Component } from 'react';
 import { View, Text, StyleSheet } from 'react-native';
-
+import VideoPlayer from 'react-native-video-controls';
 // create a component
 class mainBasic extends Component {
     render() {
         return (
-            <View style={styles.container}>
-                <Text>mainBasic</Text>
-            </View>
+            <VideoPlayer
+    source={{ uri: 'https://youtu.be/-2gCppPrdQo' }}
+    navigator={ this.props.navigator }
+/>
         );
     }
 }
