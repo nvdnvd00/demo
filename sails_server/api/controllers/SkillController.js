@@ -15,6 +15,16 @@ module.exports = {
           return res.json(slalom);
             
         })
+    },
+    get_slide: function (req,res) {
+        Skill.find({class: 'slide'})
+        .exec(function (err,slalom) 
+        {if(err){
+            return res.json(err);
+          }
+          return res.json(slalom);
+            
+        })
     }
 };
 

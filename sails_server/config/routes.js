@@ -37,7 +37,7 @@ module.exports.routes = {
   },
   'post /user/login':'userController.login',
   '/skill/get_slalom':'SkillController.get_slalom',
-  
+  '/skill/get_slide':'SkillController.get_slide',
   
   
 

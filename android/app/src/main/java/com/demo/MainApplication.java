@@ -3,6 +3,7 @@ package com.demo;
 import android.app.Application;
 
 import com.facebook.react.ReactApplication;
+import com.BV.LinearGradient.LinearGradientPackage;
 import com.oblador.vectoricons.VectorIconsPackage;
 import com.reactnativecomponent.splashscreen.RCTSplashScreenPackage;
 import com.facebook.reactnative.androidsdk.FBSDKPackage;
@@ -45,6 +46,7 @@ public class MainApplication extends Application implements ReactApplication {
         return Arrays.<ReactPackage>asList(
             //new SplashScreenReactPackage(), //splashcreen neos add
             new MainReactPackage(),
+            new LinearGradientPackage(),
             new VectorIconsPackage(),
             new RCTSplashScreenPackage(),
          
