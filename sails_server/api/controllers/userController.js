@@ -23,7 +23,7 @@ module.exports = {
             avatar: avatar
           })
           .exec(function(err, created) {
-            //tao list skill for user-----------------------
+            //create/update list skill for user-----------------------
             Skill.find().exec(function (err,items) {
               var x=items.length;
               
@@ -51,7 +51,7 @@ module.exports = {
             }
           )
           .exec(function(err, updated) {
-            //tao list skill for user-----------------------
+            //create/update list skill for user-----------------------
             Skill.find().exec(function (err,items) {
               var x=items.length;
               
@@ -75,24 +75,7 @@ module.exports = {
     var id=req.param("id");
     Userskill.query('SELECT b.skill,a.name, b.statusskill FROM skill a, userskill b where a.id=b.skill and b.user= ?',[id],
     function (err,result) {
-      
       res.send(result);
-    
     })
-      
-    
   },
-  countskill: function(req, res) {
-    var userid=req.param("id");
-    
-    Skill.find().exec(function (err,items) {
-      var x=items.length;
-      
-      for (var i=1;i<=x;i++)
-      {
-        Userskill.updateOrCreate({user:userid,skill:i},{user:userid,skill:i,statusskill:'no'})
-      }
-      res.send({x});
-    })     
-    } 
 };
