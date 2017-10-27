@@ -47,7 +47,8 @@ module.exports = {
     });
   },
   get_my_list_skill: function(req, res) {
-    Userskill.find().exec(function(error, result) {
+    var id=req.param("id");
+    Userskill.find({user:id}).exec(function(error, result) {
       if (result) {
         res.send(result)
       }

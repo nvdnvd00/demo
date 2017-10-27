@@ -35,6 +35,7 @@ class CustomDrawerContentComponent extends Component {
     };
   }
   componentWillMount() {
+    
     AccessToken.getCurrentAccessToken().then(data => {
       if (data == null) {
         return;
@@ -159,7 +160,7 @@ class CustomDrawerContentComponent extends Component {
                         type: "CHANGE_LOGIN_STATUS",
                         loginStatus: true
                       });
-
+                      
                       fetch(CONFIG.API_URL + "/user/login", {
                         method: "post",
                         headers: {
@@ -209,7 +210,7 @@ class CustomDrawerContentComponent extends Component {
           {this.props.myUser_id !== "" ? <View style={{ flex: 1 }}>
             <TouchableOpacity 
               onPress={() => {
-                this.props.navigation.navigate("HomeScreen");
+                this.props.navigation.navigate("mainPersonalScreen");
               }}>
               <Image style={{
                 width: 40,
@@ -366,7 +367,10 @@ class CustomDrawerContentComponent extends Component {
 
     </Container>
   }
+
 }
+
+
 
 const styles = StyleSheet.create({
   header: {

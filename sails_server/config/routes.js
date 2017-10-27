@@ -37,7 +37,8 @@ module.exports.routes = {
   },
   'post /user/login':'userController.login',
   'get /skill/:classskill':'SkillController.get_skill',
-  'get /user/get_my_list_skill':'userController.get_my_list_skill',
+  'get /user/get_my_list_skill/:id':'userController.get_my_list_skill',
+  
   
   
 

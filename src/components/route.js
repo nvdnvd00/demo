@@ -28,6 +28,7 @@ import formRegister from "./formLogin/register";
 import formLogin from "./formLogin/login"
 
 import mainBook from './Book/mainBook';
+import mainPersonal from './Personal/mainPersonal';
 
 
 
@@ -44,6 +45,9 @@ const MyStackNavigator = StackNavigator(
     },
     mainBookScreen: {
       screen: mainBook
+    },
+    mainPersonalScreen: {
+      screen: mainPersonal
     }
   },
   {

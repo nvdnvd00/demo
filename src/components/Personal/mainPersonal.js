@@ -1,13 +1,13 @@
 //import liraries
 import React, { Component } from 'react';
 import { View, Text, StyleSheet } from 'react-native';
-import {connect} from 'react-redux';
+import MySkill from './mySkill';
 
 // create a component
-class mainBasic extends Component {
+class mainPersonal extends Component {
     render() {
         return (
-            <View></View>
+            <MySkill/>
         );
     }
 }
@@ -22,12 +22,5 @@ const styles = StyleSheet.create({
     },
 });
 
-function mapStateToProps(state) {
-    return{
-        myUser_id: state.user_id
-    }
-    
-}
-
 //make this component available to the app
-export default connect(mapStateToProps)(mainBasic); //connect redux to component
+export default mainPersonal;

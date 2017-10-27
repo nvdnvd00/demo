@@ -7,17 +7,18 @@
 
 module.exports = {
   autoCreatedAt: false,
-	autoUpdatedAt: false,
+  autoUpdatedAt: false,
   attributes: {
-user:{
-  model: 'user'
-},
-skill:{
-  model:'Skill'
-},
-statusskill:{
-  type:'string'
-}
+    user: {
+      model: 'user'
+    },
+    skill: {
+      model: 'Skill'
+    },
+    statusskill: {
+      type: 'string'
+    },
+ 
   }
 };
 
