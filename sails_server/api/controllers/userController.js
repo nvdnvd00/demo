@@ -45,6 +45,13 @@ module.exports = {
           });
       }
     });
+  },
+  get_my_list_skill: function(req, res) {
+    Userskill.find().exec(function(error, result) {
+      if (result) {
+        res.send(result)
+      }
+    })
   }
 
   

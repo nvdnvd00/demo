@@ -26,6 +26,10 @@ module.exports = {
     },
     avatar:{
       type:'string'
+    },
+    skills:{
+      collection:'Skill',   //user collect skill   
+      through:'userskill'   //Bỏ qua model userskill
     }
   }
 };

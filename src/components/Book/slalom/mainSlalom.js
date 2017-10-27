@@ -15,7 +15,7 @@ class mainSlalom extends Component {
         }
     }
     componentWillMount() {
-        fetch(CONFIG.API_URL + "/skill/get_slalom")    
+        fetch(CONFIG.API_URL + "/skill/slalom")    
         .then((response) => response.json())
         .then((responseJson) => {
           this.setState({

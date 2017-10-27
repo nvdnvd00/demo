@@ -31,6 +31,11 @@ module.exports = {
     },
     description:{
       type:'string'
+    },
+    users:{
+      collection:'user',
+      
+      through:'userskill'
     }
   }
 };

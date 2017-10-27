@@ -25,6 +25,18 @@ module.exports = {
           return res.json(slalom);
             
         })
+    },
+    get_skill:function (req,res){
+        var classskill = req.param("classskill");
+        Skill.find({class: classskill})
+        .exec(function (err,skill) 
+        {if(err){
+            return res.json(err);
+          }
+          return res.json(skill);
+            
+        })
+
     }
 };
 

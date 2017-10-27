@@ -30,6 +30,7 @@ export default class Home extends Component {
 
 
   componentWillMount(){
+    
     /* this.refs.firstcircle.measure(function(x, y) {
       this.setState({ posx: x }), this.setState({ posy: y });
     }); */

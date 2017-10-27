@@ -15,7 +15,7 @@ class mainSlide extends Component {
         }
     }
     componentWillMount() {
-        fetch(CONFIG.API_URL + "/skill/get_slide")    
+        fetch(CONFIG.API_URL + "/skill/slide")    
         .then((response) => response.json())
         .then((responseJson) => {
           this.setState({
