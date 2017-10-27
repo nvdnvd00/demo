@@ -22,6 +22,7 @@
     "rc": "1.0.1",
     "sails": "~0.12.14",
     "sails-disk": "~0.10.9",
+    "sails-hook-update-or-create": "^0.1.4",
     "sails-mysql": "^0.11.5",
     "waterline": "^0.13.1-3"
   },
