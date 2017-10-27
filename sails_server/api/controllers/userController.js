@@ -12,6 +12,7 @@ module.exports = {
     var name = req.param("name");
     var email = req.param("email");
     var avatar = req.param("avatar");
+
     user.findOne({ id: id }).exec(function(error, result) {
       if (result==undefined) {
         user
@@ -45,15 +46,16 @@ module.exports = {
           });
       }
     });
+
+    
   },
   get_my_list_skill: function(req, res) {
     var id=req.param("id");
-    Userskill.find({user:id}).exec(function(error, result) {
-      if (result) {
-        res.send(result)
-      }
+    Userskill.query('SELECT b.skill,a.name, b.statusskill FROM skill a, userskill b where a.id=b.skill and b.user= ?',[id],
+    function (err,result) {
+      res.send(result);
     })
-  }
-
-  
+      
+    
+  },
 };
