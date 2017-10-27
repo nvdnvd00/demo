@@ -1,7 +1,7 @@
 //import liraries
 import React, { Component } from 'react';
 import { View, Text, StyleSheet } from 'react-native';
-import { Container, Header, Tab, Tabs, ScrollableTab } from 'native-base';
+import { Container, Header, Tab, Tabs, ScrollableTab, Left, Body, Right,Button, Icon,Title } from 'native-base';
 import CONFIG from "../config";
 import BackgroundImage from './backgroundImage';
 import AnimatedLinearGradient, {presetColors} from 'react-native-animated-linear-gradient';
@@ -14,11 +14,26 @@ class mainBook extends Component {
   render() {
     return (
       <BackgroundImage>
+        <Header>
+                    <Left>
+                        <Button transparent onPress={() => { this.props.navigation.goBack() }}>
+                            <Icon name='arrow-back' />
+                        </Button>
+                    </Left>
+                    <Body>
+                        <Title>Cẩm nang</Title>
+                    </Body>
+                    {/* <Right>
+                        <Button transparent>
+                            <Icon name='menu' />
+                        </Button>
+                    </Right> */}
+                </Header>
         <Container style={styles.con}>
         <AnimatedLinearGradient customColors={presetColors.instagram} speed={500}/>
           <Tabs style={{height:1}} renderTabBar={() => <ScrollableTab  /> }>
           
-            <Tab heading="Cơ bản" tabStyle={{backgroundColor: 'black', borderTopLeftRadius: 20, borderBottomLeftRadius: 20,borderWidth:2,borderColor:'white' }} activeTabStyle={{backgroundColor: 'blue', borderTopLeftRadius: 20, borderBottomLeftRadius: 20 ,borderWidth:2,borderColor:'white'}} textStyle={{ color: 'white' }} activeTextStyle={{ color: 'white' }}>        
+            <Tab heading="Cơ bản" tabStyle={styles.tabStyle} activeTabStyle={styles.activeTabStyle} textStyle={styles.textStyle} activeTextStyle={styles.activeTextStyle}>        
               <AnimatedLinearGradient customColors={presetColors.instagram} speed={500}/>
               <MainBasic />
             </Tab>
@@ -35,7 +50,7 @@ class mainBook extends Component {
             <AnimatedLinearGradient customColors={presetColors.instagram} speed={500}/>
             {/* code */}
             </Tab>
-            <Tab heading="Combo Slalom" tabStyle={{backgroundColor: 'black', borderTopRightRadius: 20, borderBottomRightRadius: 20 ,borderWidth:2,borderColor:'white'}} activeTabStyle={{ backgroundColor: 'blue', borderTopRightRadius: 20, borderBottomRightRadius: 20 ,borderWidth:2,borderColor:'white'}} textStyle={{ color: 'white' }} activeTextStyle={{ color: 'white' }}>
+            <Tab heading="Combo Slalom" tabStyle={styles.tabStyle} activeTabStyle={styles.activeTabStyle} textStyle={styles.textStyle} activeTextStyle={styles.activeTextStyle}>
             <AnimatedLinearGradient customColors={presetColors.instagram} speed={500}/>
             {/* code */}
             </Tab>

@@ -3,11 +3,17 @@ import React, { Component } from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 import {connect} from 'react-redux';
 
+
 // create a component
 class mainBasic extends Component {
+    constructor() {
+        super();
+    }
     render() {
         return (
-            <View></View>
+            <View>
+            
+          </View>
         );
     }
 }
