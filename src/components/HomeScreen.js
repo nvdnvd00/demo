@@ -71,7 +71,7 @@ export default class Home extends Component {
         {/* <View style={styles.circle} ref="firstcircle" />
         <View style={styles.circle2} />
         <View style={styles.circle3} /> */}
-      <MenuHomeScreen/>
+      <MenuHomeScreen />
       </Container>
     );
   }

@@ -29,7 +29,10 @@ module.exports = {
               
               for (var i=1;i<=x;i++)
               {
-                Userskill.updateOrCreate({user:id,skill:i},{user:id,skill:i,statusskill:'no'})
+                Userskill.findOrCreate({user:id,skill:i},{user:id,skill:i,statusskill:'no'}).exec(function (err,result) {
+                  if (err) { console.log(err)} console.log(result)
+                  
+                })
               }
               /* res.send({x}); */
             })  
@@ -57,7 +60,10 @@ module.exports = {
               
               for (var i=1;i<=x;i++)
               {
-                Userskill.updateOrCreate({user:id,skill:i},{user:id,skill:i,statusskill:'no'})
+                Userskill.findOrCreate({user:id,skill:i},{user:id,skill:i,statusskill:'no'}).exec(function (err,result) {
+                  if (err) { console.log(err)} console.log(result)
+                  
+                })
               }
               /* res.send({x}); */
             })  
