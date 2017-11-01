@@ -15,7 +15,7 @@ class MenuHomeScreen extends Component {
                 </View> */}
                 {/* button */}
                 <View style={{ position: 'absolute', left: 40, backgroundColor: 'transparent' }}>
-                    <TouchableOpacity style={{ flexDirection: 'row' }}
+                    <TouchableOpacity style={{ flexDirection: 'row' }} onPress={() => { this.props.navigation.navigate("formRegisterScreen") }}
                        >
                         <View style={{ justifyContent:'center',alignItems:'center', width: 60,height: 60,borderRadius: 40, borderColor: 'white', borderWidth: 5,backgroundColor: 'white' }}>
                             <Image style={{

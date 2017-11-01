@@ -31,7 +31,7 @@ class mainSlide extends Component {
         return (
             
            <View >
-               <AnimatedLinearGradient customColors={presetColors.instagram} speed={500}/>
+               {/* <AnimatedLinearGradient customColors={presetColors.instagram} speed={500}/> */}
                 <ScrollView style={{ backgroundColor: 'transparent', marginLeft: 10, marginRight: 10 }}>
                 
                     <FlatList

@@ -29,7 +29,8 @@ import formLogin from "./formLogin/login"
 
 import mainBook from './Book/mainBook';
 import mainPersonal from './Personal/mainPersonal';
-import MySkill from './Personal/mySkill'
+import MySkill from './Personal/mySkill';
+import MenuHomeScreen from './MenuHomeScreen';
 
 
 
@@ -38,6 +39,7 @@ const MyStackNavigator = StackNavigator(
     HomeScreen: {
       screen: Home
     },
+
     formRegisterScreen: {
       screen: formRegister
     },

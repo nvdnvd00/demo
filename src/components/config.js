@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 var CONFIG = {
   //API_URL khong chua dau "/" cuoi cung!
-  API_URL: "http://192.168.1.106:1337"
+  API_URL: "http://192.168.1.103:1337"
 };
 module.exports = CONFIG;

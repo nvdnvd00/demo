@@ -68,15 +68,68 @@ export default class Home extends Component {
           source={require("../images/menu_btn.png")}
         />
         </TouchableOpacity>
-        {/* <View style={styles.circle} ref="firstcircle" />
-        <View style={styles.circle2} />
-        <View style={styles.circle3} /> */}
-      <MenuHomeScreen />
+        
+
+        <View style={styles.menu}>
+         
+          <View style={ styles.buttonmenu }>
+            <TouchableOpacity style={{ flexDirection: 'row',backgroundColor:'grey',borderRadius:40 }} 
+              onPress={() => { this.props.navigation.navigate("mainBookScreen") }}
+            >
+              <View style={{ justifyContent: 'center', alignItems: 'center', width: 60, height: 60, borderRadius: 40, borderColor: 'white', borderWidth: 5, backgroundColor: 'white' }}>
+                <Image style={{
+                  width: 40,
+                  height: 40,
+                }}
+                  source={require("./sidebar/images/book_btn.png")}
+                />
+              </View>
+              <View style={{ justifyContent: 'center',alignItems:'center' }}>
+                <Text style={styles.text}>Cẩm nang</Text>
+              </View>
+            </TouchableOpacity>
+          </View>
+
+          <View style={ styles.buttonmenu }>
+          <TouchableOpacity style={{ flexDirection: 'row',backgroundColor:'grey',borderRadius:40 }} 
+            onPress={() => { this.props.navigation.navigate("mainBookScreen") }}
+            >
+              <View style={{ justifyContent: 'center', alignItems: 'center', width: 60, height: 60, borderRadius: 40, borderColor: 'white', borderWidth: 5, backgroundColor: 'white' }}>
+                <Image style={{
+                  width: 40,
+                  height: 40,
+                }}
+                  source={require("./sidebar/images/club_btn.png")}
+                />
+              </View>
+              <View style={{ justifyContent: 'center',alignItems:'center' }}>
+                <Text style={styles.text}>Hội nhóm</Text>
+              </View>
+            </TouchableOpacity>
+          </View>
+        </View>
       </Container>
     );
   }
 }
 const styles = StyleSheet.create({
+  text: {
+    fontFamily: "Crabmeal" ,
+    color:'white',
+    fontSize:25,
+    left:30
+  },
+    menu: {
+       
+        position:'absolute',
+        top: Dimensions.get("window").height /2-250,
+        height: 530,
+        width: Dimensions.get("window").width,
+        backgroundColor: 'transparent',
+    },
+    buttonmenu:{
+      paddingTop:40, left: 40, backgroundColor: 'transparent', width:300
+    },
   header: {
     height: 40,
     backgroundColor: "transparent",

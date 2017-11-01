@@ -1,7 +1,7 @@
 //import liraries
 import React, { Component } from 'react';
-import { View, Text, StyleSheet } from 'react-native';
-import { Container, Header, Tab, Tabs, ScrollableTab, Left, Body, Right,Button, Icon,Title } from 'native-base';
+import { View,  StyleSheet } from 'react-native';
+import { Container, Header, Tab, Tabs, ScrollableTab,TabHeading, Left, Body, Right,Button, Icon,Title,Text } from 'native-base';
 import CONFIG from "../config";
 import BackgroundImage from './backgroundImage';
 import AnimatedLinearGradient, {presetColors} from 'react-native-animated-linear-gradient';
@@ -30,29 +30,15 @@ class mainBook extends Component {
                     </Right> */}
                 </Header>
         <Container style={styles.con}>
-        <AnimatedLinearGradient customColors={presetColors.instagram} speed={500}/>
-          <Tabs style={{height:1}} renderTabBar={() => <ScrollableTab  /> }>
-          
-            <Tab heading="Cơ bản" tabStyle={styles.tabStyle} activeTabStyle={styles.activeTabStyle} textStyle={styles.textStyle} activeTextStyle={styles.activeTextStyle}>        
-              <AnimatedLinearGradient customColors={presetColors.instagram} speed={500}/>
+          <Tabs>
+            <Tab heading={<TabHeading><Icon name="pulse" /><Text>Cơ bản</Text></TabHeading>}>
               <MainBasic />
             </Tab>
-            <Tab heading="Slide" tabStyle={styles.tabStyle} activeTabStyle={styles.activeTabStyle} textStyle={styles.textStyle} activeTextStyle={styles.activeTextStyle}>
-              <AnimatedLinearGradient customColors={presetColors.instagram} speed={500}/>
-              <MainSlide />
+            <Tab heading={<TabHeading><Text>Slalom</Text></TabHeading>}>
+            <MainSlalom />
             </Tab>
-            <Tab heading="Slalom" tabStyle={styles.tabStyle} activeTabStyle={styles.activeTabStyle} textStyle={styles.textStyle} activeTextStyle={styles.activeTextStyle}>
-              
-              <AnimatedLinearGradient customColors={presetColors.instagram} speed={500}/>
-              <MainSlalom />
-            </Tab>
-            <Tab heading="Combo Slide" tabStyle={styles.tabStyle} activeTabStyle={styles.activeTabStyle} textStyle={styles.textStyle} activeTextStyle={styles.activeTextStyle}>
-            <AnimatedLinearGradient customColors={presetColors.instagram} speed={500}/>
-            {/* code */}
-            </Tab>
-            <Tab heading="Combo Slalom" tabStyle={styles.tabStyle} activeTabStyle={styles.activeTabStyle} textStyle={styles.textStyle} activeTextStyle={styles.activeTextStyle}>
-            <AnimatedLinearGradient customColors={presetColors.instagram} speed={500}/>
-            {/* code */}
+            <Tab heading={<TabHeading><Icon name="apps" /><Text>Slide</Text></TabHeading>}>
+            <MainSlide />
             </Tab>
           </Tabs>
         </Container>
