@@ -5,6 +5,8 @@ import {  } from 'native-base';
 import CONFIG from '../config';
 import BackgroundImage from "../backgroundImage";
 import AnimatedLinearGradient, {presetColors} from 'react-native-animated-linear-gradient';
+import { withNavigation } from 'react-navigation';
+
 
 // create a component
 class mainSlalom extends Component {
@@ -42,7 +44,8 @@ class mainSlalom extends Component {
                                 
                                 <View style={{ height: 10 }} ></View>
                                 
-                                <TouchableOpacity style={{borderWidth: 2, borderRadius: 20, borderColor: 'white',backgroundColor:'#4775d1'}} >
+                                <TouchableOpacity style={{borderWidth: 2, borderRadius: 20, borderColor: 'white',backgroundColor:'#4775d1'}}  
+                                onPress={()=>{this.props.navigation.navigate('detailsKillScreen',{name: item.url} )}}>
                                 
                                     <Text style={{  color: 'white', fontSize: 20, fontFamily: "Crabmeal",left:20 }}>{item.name}</Text>
                                     <Text style={{  color: 'white', fontSize: 20, fontFamily: "Crabmeal",textAlign:'right',right:20 }}>{item.level}</Text>
@@ -63,4 +66,4 @@ class mainSlalom extends Component {
 
 
 //make this component available to the app
-export default mainSlalom;
+export default withNavigation(mainSlalom);

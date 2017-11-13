@@ -20,7 +20,7 @@ import {
   Image,
   Dimensions,
 } from "react-native";
-import MenuHomeScreen from './MenuHomeScreen';
+
 
 export default class Home extends Component {
   constructor(props) {

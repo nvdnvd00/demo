@@ -1,21 +1,5 @@
 import React, { Component } from "react";
 import { StackNavigator, DrawerNavigator, DrawerItems } from "react-navigation";
-import {
-  ScrollView,
-  StyleSheet,
-  View,
-  Text,
-  TouchableOpacity,
-  Button
-} from "react-native";
-import CONFIG from "./config";
-import {
-  LoginButton,
-  AccessToken,
-  GraphRequestManager,
-  GraphRequest
-} from "react-native-fbsdk";
-
 
 import CustomDrawerContentComponent from './sidebar/customDrawerContentComponent';
 
@@ -30,7 +14,10 @@ import formLogin from "./formLogin/login"
 import mainBook from './Book/mainBook';
 import mainPersonal from './Personal/mainPersonal';
 import MySkill from './Personal/mySkill';
-import MenuHomeScreen from './MenuHomeScreen';
+
+
+import detailsKill from './Book/detailsSkill';
+import mainSlalom from './Book/slalom/mainSlalom';
 
 
 
@@ -54,12 +41,36 @@ const MyStackNavigator = StackNavigator(
     },
     MySkillScreen: {
       screen: MySkill
-    }
+    },
+    detailsKillScreen:{
+      screen: detailsKill
+    },
+  
+
   },
   {
     headerMode: "none"
   }
 );
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 const MyDrawerNavigator = DrawerNavigator(
   {
@@ -68,7 +79,30 @@ const MyDrawerNavigator = DrawerNavigator(
     },
     HomeScreen: {
       screen: Home
-    }
+    },
+
+    formRegisterScreen: {
+      screen: formRegister
+    },
+    formLoginScreen: {
+      screen: formLogin
+    },
+    mainBookScreen: {
+      screen: mainBook
+    },
+    mainPersonalScreen: {
+      screen: mainPersonal
+    },
+    MySkillScreen: {
+      screen: MySkill
+    },
+    detailsKillScreen:{
+      screen: detailsKill
+    },
+    mainSlalomScreen:{
+      screen: mainSlalom
+    },
+  
   },
   {
     drawerWidth: 220,

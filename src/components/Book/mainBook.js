@@ -11,6 +11,7 @@ import MainSlide from "./slide/mainSlide";
 import MainBasic from "./basic/mainBasic";
 // create a component
 class mainBook extends Component {
+  constructor(props) { super(props) }
   render() {
     return (
       <BackgroundImage>
