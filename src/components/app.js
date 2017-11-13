@@ -24,8 +24,7 @@ class App extends Component {
   render() {
     return (
       
-        <MyStackNavigator />
-    
+      <MyStackNavigator/>
     );
   }
 }

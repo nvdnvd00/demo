@@ -3,6 +3,7 @@ package com.demo;
 import android.app.Application;
 
 import com.facebook.react.ReactApplication;
+import com.inprogress.reactnativeyoutube.ReactNativeYouTube;
 import com.brentvatne.react.ReactVideoPackage;
 import com.BV.LinearGradient.LinearGradientPackage;
 import com.oblador.vectoricons.VectorIconsPackage;
@@ -47,6 +48,7 @@ public class MainApplication extends Application implements ReactApplication {
         return Arrays.<ReactPackage>asList(
             //new SplashScreenReactPackage(), //splashcreen neos add
             new MainReactPackage(),
+            new ReactNativeYouTube(),
             new ReactVideoPackage(),
             new LinearGradientPackage(),
             new VectorIconsPackage(),
