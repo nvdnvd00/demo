@@ -23,7 +23,7 @@ module.exports = {
       type:'string'
     },
     descrip:{
-      type:'string'
+      type:'text'
     },
     video:{
       type:'string'

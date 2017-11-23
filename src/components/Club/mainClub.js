@@ -1,6 +1,6 @@
 //import liraries
 import React, { Component } from 'react';
-import { View, Text, StyleSheet, FlatList,TouchableOpacity, ScrollView } from 'react-native';
+import { View, Text, StyleSheet, FlatList,TouchableOpacity, ScrollView,Image } from 'react-native';
 import {  } from 'native-base';
 import CONFIG from '../config';
 
@@ -16,7 +16,7 @@ class mainClub extends Component {
         }
     }
     componentWillMount() {
-        fetch(CONFIG.API_URL + "/skill/slalom")    
+        fetch(CONFIG.API_URL + "/club")    
         .then((response) => response.json())
         .then((responseJson) => {
           this.setState({
@@ -39,15 +39,23 @@ class mainClub extends Component {
                     
                         data={this.state.data}
                         renderItem={({ item }) => 
-                            <View>
-                                
+                            <View >
+
                                 <View style={{ height: 10 }} ></View>
-                                
-                                <TouchableOpacity style={{borderWidth: 2, borderRadius: 20, borderColor: 'white',backgroundColor:'#4775d1'}}  
-                                onPress={()=>{this.props.navigation.navigate('detailsKillScreen',{url: item.url, name: item.name, des: item.description} )}}>
-                                
-                                    <Text style={{  color: 'white', fontSize: 20, fontFamily: "Crabmeal",left:20 }}>{item.name}</Text>
-                                    <Text style={{  color: 'white', fontSize: 20, fontFamily: "Crabmeal",textAlign:'right',right:20 }}>{item.level}</Text>
+
+                                <TouchableOpacity style={{ borderWidth: 2, borderRadius: 20, borderColor: 'white', backgroundColor: '#4775d1',flexDirection:'row' }}
+                                 onPress={()=>{this.props.navigation.navigate('detailClubScreen',{} )}} 
+                                >
+                                    <View style={{  height: 100, width: 100 }}>
+                                        <Image
+                                            style={{  height: 100, width: 100 }}
+                                            source={require('./img/xstorm.png')}
+                                        />
+                                    </View>
+                                    <View style={{  justifyContent: 'center',alignItems:'center' }}>
+                                    <Text style={{ color: 'white', fontSize: 20, fontFamily: "Crabmeal", left: 20 }}>{item.name}</Text>
+                                    </View>
+
                                 </TouchableOpacity>
                             </View>
                         }                      
