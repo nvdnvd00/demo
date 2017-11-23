@@ -18,6 +18,7 @@ import MySkill from './Personal/mySkill';
 
 import detailsKill from './Book/detailsSkill';
 import mainSlalom from './Book/slalom/mainSlalom';
+import mainClub from './Club/mainClub';
 
 
 
@@ -44,6 +45,9 @@ const MyStackNavigator = StackNavigator(
     },
     detailsKillScreen:{
       screen: detailsKill
+    },
+    mainClubScreen: {
+      screen: mainClub
     },
   
 
@@ -101,6 +105,9 @@ const MyDrawerNavigator = DrawerNavigator(
     },
     mainSlalomScreen:{
       screen: mainSlalom
+    },
+    mainClubScreen: {
+      screen: mainClub
     },
   
   },

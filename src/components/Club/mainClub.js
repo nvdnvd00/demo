@@ -3,13 +3,12 @@ import React, { Component } from 'react';
 import { View, Text, StyleSheet, FlatList,TouchableOpacity, ScrollView } from 'react-native';
 import {  } from 'native-base';
 import CONFIG from '../config';
-import BackgroundImage from "../backgroundImage";
-import AnimatedLinearGradient, {presetColors} from 'react-native-animated-linear-gradient';
+
 import { withNavigation } from 'react-navigation';
 
 
 // create a component
-class mainSlalom extends Component {
+class mainClub extends Component {
     constructor(props){
         super(props);
         this.state={
@@ -66,4 +65,4 @@ class mainSlalom extends Component {
 
 
 //make this component available to the app
-export default withNavigation(mainSlalom);
+export default withNavigation(mainClub);

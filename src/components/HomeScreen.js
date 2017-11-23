@@ -92,7 +92,7 @@ export default class Home extends Component {
 
           <View style={ styles.buttonmenu }>
           <TouchableOpacity style={{ flexDirection: 'row',backgroundColor:'grey',borderRadius:40 }} 
-            onPress={() => { this.props.navigation.navigate("mainBookScreen") }}
+            onPress={() => { this.props.navigation.navigate("mainClubScreen") }}
             >
               <View style={{ justifyContent: 'center', alignItems: 'center', width: 60, height: 60, borderRadius: 40, borderColor: 'white', borderWidth: 5, backgroundColor: 'white' }}>
                 <Image style={{
