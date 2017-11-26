@@ -20,9 +20,10 @@ import {
   Image,
   Dimensions,
 } from "react-native";
+import { connect } from "react-redux";
 
 
-export default class Home extends Component {
+class Home extends Component {
   constructor(props) {
     super(props);
     this.state = { posx: null, posy:null } ;
@@ -110,7 +111,10 @@ export default class Home extends Component {
 
           <View style={ styles.buttonmenu }>
           <TouchableOpacity style={{ flexDirection: 'row',backgroundColor:'grey',borderRadius:40 }} 
-            onPress={() => { this.props.navigation.navigate("mainChatScreen") }}
+            onPress={() => { !this.props.myLogin_status? alert('Need Login') :
+              this.props.navigation.navigate("mainChatScreen") 
+            }
+          }
             >
               <View style={{ justifyContent: 'center', alignItems: 'center', width: 60, height: 60, borderRadius: 40, borderColor: 'white', borderWidth: 5, backgroundColor: 'white' }}>
                 <Image style={{
@@ -194,3 +198,14 @@ const styles = StyleSheet.create({
     borderWidth: 2
   }
 });
+
+function mapStateToProps(state) {
+  return {
+    myUser_id: state.user_id,
+    myUser_name: state.user_name,
+    myUser_avatar: state.user_avatar,
+    myLogin_status: state.loginStatus
+  };
+}
+
+export default connect(mapStateToProps)(Home);
