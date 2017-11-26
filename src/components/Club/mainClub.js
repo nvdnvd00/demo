@@ -44,7 +44,7 @@ class mainClub extends Component {
                                 <View style={{ height: 10 }} ></View>
 
                                 <TouchableOpacity style={{ borderWidth: 2, borderRadius: 20, borderColor: 'white', backgroundColor: '#4775d1',flexDirection:'row' }}
-                                 onPress={()=>{this.props.navigation.navigate('detailClubScreen',{} )}} 
+                                 onPress={()=>{this.props.navigation.navigate('detailClubScreen',{name: item.name, avt: item.avt, descrip: item.descrip, video: item.video, fb: item.fb, email: item.email, sdt: item.sdt} )}} 
                                 >
                                     <View style={{  height: 100, width: 100 }}>
                                         <Image
