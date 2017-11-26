@@ -3,11 +3,11 @@ import React, { Component } from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 
 // create a component
-class mainMarket extends Component {
+class mainChat extends Component {
     render() {
         return (
             <View style={styles.container}>
-                <Text>mainMarket</Text>
+                <Text>mainChat</Text>
             </View>
         );
     }
@@ -24,4 +24,4 @@ const styles = StyleSheet.create({
 });
 
 //make this component available to the app
-export default mainMarket;
+export default mainChat;

@@ -20,6 +20,7 @@ import detailsKill from './Book/detailsSkill';
 import mainSlalom from './Book/slalom/mainSlalom';
 import mainClub from './Club/mainClub';
 import detailClub from './Club/detailClub';
+import mainChat from './Chat/mainChat';
 
 
 
@@ -53,7 +54,9 @@ const MyStackNavigator = StackNavigator(
     detailClubScreen:{
       screen: detailClub
     },
-  
+    mainChatScreen: {
+      screen: mainChat
+    },
 
   },
   {
@@ -115,6 +118,9 @@ const MyDrawerNavigator = DrawerNavigator(
     },
     detailClubScreen:{
       screen: detailClub
+    },
+    mainChatScreen: {
+      screen: mainChat
     },
   
   },

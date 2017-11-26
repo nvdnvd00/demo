@@ -107,6 +107,25 @@ export default class Home extends Component {
               </View>
             </TouchableOpacity>
           </View>
+
+          <View style={ styles.buttonmenu }>
+          <TouchableOpacity style={{ flexDirection: 'row',backgroundColor:'grey',borderRadius:40 }} 
+            onPress={() => { this.props.navigation.navigate("mainChatScreen") }}
+            >
+              <View style={{ justifyContent: 'center', alignItems: 'center', width: 60, height: 60, borderRadius: 40, borderColor: 'white', borderWidth: 5, backgroundColor: 'white' }}>
+                <Image style={{
+                  width: 40,
+                  height: 40,
+                }}
+                  source={require("./sidebar/images/chat_btn.png")}
+                />
+              </View>
+              <View style={{ justifyContent: 'center',alignItems:'center' }}>
+                <Text style={styles.text}>Trò chuyện</Text>
+              </View>
+            </TouchableOpacity>
+          </View>
+
         </View>
       </Container>
     );
